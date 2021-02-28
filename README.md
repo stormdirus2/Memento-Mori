@@ -1,8 +1,8 @@
-##Some very opinionated balancing for Requiem.
+# Some very opinionated balancing for Requiem.
 
 Obviously, this mod requires Requiem. It has been tested with version 1.5, but may even work on earlier ones.
 
-#Changes
+### Changes
 Attrition has been completely reworked. It lasts 20 minutes, and will increase a level every time you die regardless if you are human.
 
 This means stockpiling on resources does not allow you to avoid consequences.
