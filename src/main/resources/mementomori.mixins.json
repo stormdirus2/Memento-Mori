@@ -4,12 +4,13 @@
   "package": "net.fenrir.mementomori.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AbstractBlockStateMixin",
     "AttritionStatusEffectMixin",
+    "BasePossessionHandlersMixin",
     "MutableRemnantStateMixin",
     "PossessionComponentImplMixin",
     "RequiemItemTagsMixin",
     "SkeletonBoneComponentMixin",
-    "BasePossessionHandlersMixin",
     "StatusEffectReapplicatorImplMixin"
   ],
   "client": [
