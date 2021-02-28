@@ -1,40 +1,15 @@
-## A block physics system not unlike Enviromine's or the functionality of scaffolding blocks.
+##Some very opinionated balancing for Requiem.
 
-Blocks have a max reach distance based on their blast resistance. They can only reach out so far from a 'support' (a column of block(s) that are connected to a highly-surrounded block or a high blast resistance block) 
+Obviously, this mod requires Requiem. It has been tested with version 1.5, but may even work on earlier ones.
 
+#Changes
+Attrition has been completely reworked. It lasts 20 minutes, and will increase a level every time you die regardless if you are human.
+This means stockpiling on resources does not allow you to avoid consequences.
+Every time attrition runs out, it decreases a level and resets the timer to 20 minutes yet again. This cannot be cheesed through the usage of milk or other methods.
+Your Attrition caps out at level V, and can only reach there from level IV if you die as a player (or spirit via void damage) and not a mob.
+Once at level V, you can no longer possess things. Basically, think soft-hardcore.
 
-Blocks that are not near a support will fall when 'updated'.
-
-#
-There is also a reinforcement mechanic, its easier to learn this firsthand than to learn it from ye old bad explainer.
-
-But basically:
-
-
-As a block is searching along their 8 vectors on the x-z plane, it will upgrade it's reach to a block of higher reach as long as that block is within it's own reach, specifically in that direction.
-
-This makes skylights easier and rewards the player for making shapes found in real architecture, like frames for glass.
-
-#
-
-Some blocks also search for supports upwards rather than downwards. 
-
-The main reasoning for this is to prevent all of the nether crashing down, as well as the end islands.
-
-Blocks with the [sticky_blocks] tag will have this behavior, in this tag there are also fences, walls, chains, iron bars, and GlassSoundGroup blocks.
-
-#
-Blocks with the [protected_blocks] tag will have a minimum of 3 block extension capability. This is to prevent trees from getting pruned completely from a single block update.
-
-#
-
-Additionally blocks that have a slipperiness value higher than 0.6, or that are in the [floats] tag will float on liquids (such as lava or water).
-
-#
-
-Confused on when/where the physics system updates the blocks?
-It checks the neighbors of a position during these events:
-* Player breaks a block.
-* Player places a block.
-* Fire destroys a block.
-* Explosion destroys a block.
+Some additional changes include:
+* Zombies can only eat rotten flesh by default
+* Skeleton's now use bone meal instead, and it only heals 2 health instead (because the cooldown is lower than rotten flesh).
+* Enchanted golden apples can be used to cure without weakness applied to the player. They can now be crafted using the golden apple recipe, but with golden blocks instead of ingots.
