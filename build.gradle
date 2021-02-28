@@ -1,0 +1,162 @@
+plugins {
+    id 'fabric-loom' version '0.6-SNAPSHOT'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+group = project.maven_group
+
+if (System.env.CI == "true") {
+    def branch
+    branch = System.env.GITHUB_REF
+    branch = branch.substring(branch.lastIndexOf("/") + 1)
+
+    version = "${project.mod_version}+a${System.env.GITHUB_RUN_NUMBER}.${branch}-fabric"
+} else {
+    version = "${project.mod_version}+${project.minecraft_version}-fabric"
+}
+
+minecraft {}
+
+repositories {
+    maven {
+        name = "Jitpack"
+        url = "https://jitpack.io"
+    }
+    maven { url "https://maven.dblsaiko.net/" }
+    maven { url "http://server.bbkr.space:8081/artifactory/libs-release/" }
+    maven { url 'https://maven.blamejared.com' }
+    maven { url "https://maven.fabricmc.net/" }
+    repositories {
+        maven {
+            name = 'Ladysnake Mods 1'
+            url = 'https://dl.bintray.com/ladysnake/mods'
+        }
+    }
+    maven {
+        name = 'Ladysnake Mods 2'
+        url = 'https://dl.bintray.com/ladysnake/libs'
+    }
+    maven {
+        url = 'https://www.cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        name = 'Earthcomputer Mods'
+        url = 'https://dl.bintray.com/earthcomputer/mods'
+        content {
+            includeGroup 'net.earthcomputer'
+        }
+    }
+    jcenter()
+}
+
+dependencies {
+    // base
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_build}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // modRuntime ("com.github.jellysquid3:sodium-fabric:${project.sodium_version}") { exclude ( group: "net.fabricmc.fabric-api" ) }
+    modRuntime("me.sargunvohra.mcmods:autoconfig1u:${autoconfig_version}")
+    modRuntime "io.github.cottonmc:LibGui:${libgui_version}"
+    modRuntime "net.earthcomputer:libstructure:1.5"
+    modCompileOnly("curse.maven:haema-391257:${haema_version}")
+    modRuntime("curse.maven:haema-391257:${haema_version}")
+    modRuntime("net.fabricmc:fabric-language-kotlin:${flk_version}")
+    modRuntime("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cca_version}")
+    modCompileOnly("curse.maven:golems-galore-387197:${golems_galore_version}")
+    modCompileOnly("curse.maven:the-bumblezone-fabric-363949:${bumblezone_version}")
+    modImplementation "me.zeroeightsix:fiber:${project.fiber_version}"
+    modImplementation ("me.shedaniel.cloth:config-2:${project.cloth_version}")
+    modImplementation "io.github.ladysnake:requiem-api:${project.requiem_version}"
+    modImplementation "io.github.ladysnake:requiem:${project.requiem_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    it.options.encoding = "UTF-8"
+
+    // The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
+    // JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
+    // We'll use that if it's available, but otherwise we'll use the older option.
+    def targetVersion = 8
+    // if (JavaVersion.current().isJava9Compatible()) {
+    //     it.options.release = targetVersion
+    // }
+}
+
+// java {
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// if it is present.
+// If you remove this line, sources will not be generated.
+// withSourcesJar()
+// }
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            // artifact(sourcesJar) {
+            // builtBy remapSourcesJar
+            // }
+        }
+    }
+
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/stormdirus2/Memento=Mori")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+            }
+        }
+    }
+}
+
+loom {
+    runs {
+        data {
+            server()
+
+            vmArg "-Dmarbles.datagen=true"
+            vmArg "-Dmarbles.datagen.path=${project.file("src/generated/resources")};${project.file("$buildDir/resources/main")}"
+        }
+    }
+}
+
+processResources {
+    finalizedBy runData
+}
+
+sourceSets.main.resources {
+    srcDirs += "$projectDir/src/generated/resources"
+}

@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fenrir.mementomori.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AttritionStatusEffectMixin",
+    "MutableRemnantStateMixin",
+    "PossessionComponentImplMixin",
+    "RequiemItemTagsMixin",
+    "SkeletonBoneComponentMixin",
+    "BasePossessionHandlersMixin",
+    "StatusEffectReapplicatorImplMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

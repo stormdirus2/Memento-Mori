@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "mementomori",
+  "version": "${version}",
+  "name": "Memento Mori",
+  "description": "Requiem addon that increases difficulty.",
+  "authors": [
+    "Fenrir"
+  ],
+  "contact": {
+
+  },
+  "license": "MIT",
+  "icon": "pack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fenrir.mementomori.MementoMori"
+    ]
+  },
+  "mixins": [
+    "mementomori.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.1",
+    "minecraft": ">=1.16.2",
+    "fabric": "*",
+    "requiem": "*"
+  }
+}
