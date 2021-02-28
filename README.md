@@ -1,4 +1,5 @@
-# Some very opinionated balancing for Requiem.
+![](src/main/resources/pack.png)
+## Some very opinionated balancing for Requiem.
 
 Obviously, this mod requires Requiem. It has been tested with version 1.5, but may even work on earlier ones.
 
@@ -14,7 +15,7 @@ Your Attrition caps out at level V, and can only reach there from level IV if yo
 Once at level V, you can no longer possess things. Basically, think soft-hardcore.
 
 
-Some additional changes include:
+### Additional Changes
 * Zombies can only eat rotten flesh by default
-* Skeleton's now use bone meal instead, and it only heals 2 health instead (because the cooldown is lower than rotten flesh).
+* Skeletons now use bone meal instead, and it only heals 2 health (because the cooldown is lower than rotten flesh).
 * Enchanted golden apples can be used to cure without weakness applied to the player. They can now be crafted using the golden apple recipe, but with golden blocks instead of ingots.
