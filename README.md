@@ -19,3 +19,4 @@ Once at level V, you can no longer possess things. Basically, think soft-hardcor
 * Zombies can only eat rotten flesh by default
 * Skeletons now use bone meal instead, and it only heals 2 health (because the cooldown is lower than rotten flesh).
 * Enchanted golden apples can be used to cure without weakness applied to the player. They can now be crafted using the golden apple recipe, but with golden blocks instead of ingots.
+* (Latest commit) Blocks with a blast resistance of 1200 (obsidian level) or higher cannot be phased through. Happy ghost-trapping :)
