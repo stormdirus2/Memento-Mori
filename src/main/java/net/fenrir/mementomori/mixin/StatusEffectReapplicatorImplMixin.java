@@ -2,6 +2,8 @@ package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.api.v1.internal.StatusEffectReapplicator;
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
+import net.fenrir.mementomori.MementoMori;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +19,8 @@ import java.util.Collection;
 public abstract class StatusEffectReapplicatorImplMixin implements StatusEffectReapplicator {
     @Shadow @Final private Collection<StatusEffectInstance> reappliedEffects;
 
+    @Shadow @Final private LivingEntity holder;
+
     @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"), cancellable = true, remap = false)
     protected void noRemove(StatusEffectInstance effect, CallbackInfo ci) {
         if (effect.getEffectType() == RequiemStatusEffects.ATTRITION) {
@@ -29,10 +33,10 @@ public abstract class StatusEffectReapplicatorImplMixin implements StatusEffectR
                         false,
                         true
                 ));
-            } else if (effect.getAmplifier() > 0) {
+            } else if (effect.getAmplifier() > 0 && this.holder.world.getGameRules().getBoolean(MementoMori.slowFade)) {
                 this.reappliedEffects.add(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
-                        24000,
+                        holder.world.getGameRules().getInt(MementoMori.attritionTime),
                         effect.getAmplifier() - 1,
                         false,
                         false,

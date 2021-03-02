@@ -1,6 +1,7 @@
 package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
+import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +16,7 @@ public abstract class AttritionStatusEffectMixin {
     private static void addAttrition(LivingEntity target, int amplifier, CallbackInfo ci) {
         target.addStatusEffect(new StatusEffectInstance(
                 RequiemStatusEffects.ATTRITION,
-                24000,
+                target.world.getGameRules().getInt(MementoMori.attritionTime),
                 amplifier,
                 false,
                 false,

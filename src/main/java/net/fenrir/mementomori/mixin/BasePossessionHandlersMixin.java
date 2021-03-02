@@ -4,6 +4,7 @@ import ladysnake.requiem.Requiem;
 import ladysnake.requiem.api.v1.event.requiem.PossessionStartCallback;
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.remnant.BasePossessionHandlers;
+import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +19,7 @@ public abstract class BasePossessionHandlersMixin {
     private static void register2(CallbackInfo ci) {
         PossessionStartCallback.EVENT.register(Requiem.id("soft_hardcore"), (target, possessor, simulate) -> {
             StatusEffectInstance effect = possessor.getStatusEffect(RequiemStatusEffects.ATTRITION);
-            if (effect != null && effect.getAmplifier() > 3) {
+            if (effect != null && effect.getAmplifier() > 3 && possessor.world.getGameRules().getBoolean(MementoMori.permaDeath)) {
                 return PossessionStartCallback.Result.DENY;
             }
             return PossessionStartCallback.Result.PASS;

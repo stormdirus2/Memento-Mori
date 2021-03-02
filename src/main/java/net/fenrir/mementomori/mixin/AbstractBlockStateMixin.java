@@ -1,12 +1,14 @@
 package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.common.util.ExtendedShapeContext;
+import net.fenrir.mementomori.MementoMori;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +28,7 @@ public abstract class AbstractBlockStateMixin  {
             cancellable = true
     )
     private void preventPhasing(BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> info) {
-        if (((ExtendedShapeContext) context).requiem_isNoClipping() && this.getBlock().getBlastResistance() >= 1200) {
+        if (((ExtendedShapeContext) context).requiem_isNoClipping() && this.getBlock().getBlastResistance() >= 1200 && ((World) world).getGameRules().getBoolean(MementoMori.blastUnphasable)) {
             info.setReturnValue(this.getCollisionShape(world,pos));
         }
     }

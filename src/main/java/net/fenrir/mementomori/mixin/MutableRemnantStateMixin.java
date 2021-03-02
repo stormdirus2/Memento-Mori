@@ -2,6 +2,7 @@ package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.impl.remnant.MutableRemnantState;
+import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,7 +23,7 @@ public abstract class MutableRemnantStateMixin {
         if (effect != null && effect.getAmplifier() < 4) {
             this.player.applyStatusEffect(new StatusEffectInstance(
                     RequiemStatusEffects.ATTRITION,
-                    24000,
+                    this.player.world.getGameRules().getInt(MementoMori.attritionTime),
                     effect.getAmplifier() + 1,
                     false,
                     false,
