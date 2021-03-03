@@ -36,7 +36,7 @@ public abstract class StatusEffectReapplicatorImplMixin implements StatusEffectR
             } else if (effect.getAmplifier() > 0 && this.holder.world.getGameRules().getBoolean(MementoMori.slowFade)) {
                 this.reappliedEffects.add(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
-                        holder.world.getGameRules().getInt(MementoMori.attritionTime),
+                        holder.world.getGameRules().getInt(MementoMori.attritionTime)*20,
                         effect.getAmplifier() - 1,
                         false,
                         false,

@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "net.fenrir.mementomori.MementoMori"
+    ],
+    "client": [
+      "net.fenrir.mementomori.MementoMori_CLIENT"
     ]
   },
   "mixins": [

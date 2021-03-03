@@ -16,7 +16,7 @@ public abstract class AttritionStatusEffectMixin {
     private static void addAttrition(LivingEntity target, int amplifier, CallbackInfo ci) {
         target.addStatusEffect(new StatusEffectInstance(
                 RequiemStatusEffects.ATTRITION,
-                target.world.getGameRules().getInt(MementoMori.attritionTime),
+                target.world.getGameRules().getInt(MementoMori.attritionTime)*20,
                 amplifier,
                 false,
                 false,

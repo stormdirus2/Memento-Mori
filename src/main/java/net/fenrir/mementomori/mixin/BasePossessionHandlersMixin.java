@@ -19,7 +19,7 @@ public abstract class BasePossessionHandlersMixin {
     private static void register2(CallbackInfo ci) {
         PossessionStartCallback.EVENT.register(Requiem.id("soft_hardcore"), (target, possessor, simulate) -> {
             StatusEffectInstance effect = possessor.getStatusEffect(RequiemStatusEffects.ATTRITION);
-            if (effect != null && effect.getAmplifier() > 3 && possessor.world.getGameRules().getBoolean(MementoMori.permaDeath)) {
+            if (effect != null && effect.getAmplifier() > 3 && MementoMori.getPermaDeath(possessor.world)) {
                 return PossessionStartCallback.Result.DENY;
             }
             return PossessionStartCallback.Result.PASS;

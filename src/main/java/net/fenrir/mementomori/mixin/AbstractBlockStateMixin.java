@@ -28,7 +28,7 @@ public abstract class AbstractBlockStateMixin  {
             cancellable = true
     )
     private void preventPhasing(BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> info) {
-        if (((ExtendedShapeContext) context).requiem_isNoClipping() && this.getBlock().getBlastResistance() >= 1200 && ((World) world).getGameRules().getBoolean(MementoMori.blastUnphasable)) {
+        if (((ExtendedShapeContext) context).requiem_isNoClipping() && this.getBlock().getBlastResistance() >= 1200 && MementoMori.getBlastUnphasable((World) world)) {
             info.setReturnValue(this.getCollisionShape(world,pos));
         }
     }
