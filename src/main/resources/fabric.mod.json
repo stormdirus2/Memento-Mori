@@ -3,7 +3,7 @@
   "id": "mementomori",
   "version": "${version}",
   "name": "Memento Mori",
-  "description": "Requiem addon that increases difficulty.",
+  "description": "Requiem addon that adjusts balancing and adds some content.",
   "authors": [
     "Fenrir"
   ],

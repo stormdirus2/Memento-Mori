@@ -1,29 +1,192 @@
 ![](src/main/resources/pack.png)
-## Some very opinionated balancing for Requiem.
+## A content and balancing add-on for Requiem.
 
-Obviously, this mod requires Requiem. It has been tested with version 1.5, but may even work on earlier ones.
+Obviously, this mod requires Requiem. It has been tested with version 1.5.1, but may even work on earlier ones.
 
-### Changes
-Attrition has been completely reworked. It lasts 20 minutes, and will increase a level every time you die regardless if you are human.
+### Changes:
+<details>
+  <summary>Attrition</summary>
 
-This means stockpiling on resources does not allow you to avoid consequences.
+Attrition has been completely reworked.\
+Its effect now lasts a default of 20 minutes (configurable through gamerules). \
+Additionally, each time Attrition runs out, it goes down a level instead of simply disapearing.\
+For example: An Attrition level of IV would take 80 minutes to completely go away. 
 
-Every time attrition runs out, it decreases a level and resets the timer to 20 minutes yet again. This cannot be cheesed through the usage of milk or other methods.
+While not in human form, Attrition ticks upwards instead of downwards. This can be prevented by gaining the status effect 'Satiation'. This is also configurable through gamerules.\
+After reaching the configurable Attrition duration, the Attrition duration resets to 1 and its amplifier increases.\
+Reaching level IV from a lower Attrition level will kill the player.
 
-Your Attrition caps out at level V, and can only reach there from level IV if you die as a player (or spirit via void damage) and not a mob.
+For future reference, the maximum Attrition level is IV.
+</details>
 
-Once at level V, you can no longer possess things. Basically, think soft-hardcore.
+######
+<details>
+  <summary>Satiation</summary>
+
+Satiation is a new effect that a player can get while possessing a mob from attacking certain types of mobs.
+
+Generally, the 'humans' of the minecraft world give the most Satiation.
+<details>
+  <summary>'Humans'</summary>
+
+* Villagers
+* Pillagers
+* Golems (Either type)
+* Witches
+* Evokers
+* Vindicators
+</details>
+
+You can also, however, gain it in smaller quantities (1/4th) from Piglins.
+<details>
+  <summary>Piglins</summary>
+
+* Piglins
+* Piglin Brutes
+</details>
+
+To put this into context, 20 damage (A Villager's max health) will equal out to 5 minutes of 'Satiation'.
+Therefore, you would need to deal 80 damage against Piglins to reach the same duration.
+</details>
+
+######
+<details>
+  <summary>Soul damage</summary>
+
+Soul damage can occur from multiple sources.\
+When afflicted with soul damage, you do not take damage to your health.\
+Instead, you take soul damage as Attrition duration.
+
+Taking 3 soul damage would add 3 seconds to your Attrition.\
+Damage going over the configurable Attrition duration would increase the amplifier and have the extra damage be the new duration.\
+For example: Taking 7 soul damage when at Attrition I (19:55) would give you Attrition II (00:02).
+
+Taking soul damage that would put you at or in Attrition IV will kill you.
+
+Certain damage sources inflict 3 soul damage by default:
+<details>
+  <summary>Soul-damaging sources</summary>
+
+* Soul fire
+* Wither
+* Dragon breath
+</details>
+
+Additionally, certain mobs can exert varying levels of soul damage:
+<details>
+  <summary>Soul-damaging mobs</summary>
+
+* Phantoms: 60
+* Vex: 15
+* Evoker fangs: 5
+</details>
+
+Lastly, the new enchantment, Soul Cleaving, inflicts soul damage 30 x (level).
+</details>
+
+######
+<details>
+  <summary>Phantoms</summary>
+
+I always thought Phantoms were so cool visually and in how their attack patterns work.\
+Sadly, they are quite irrelevant at their best, and incredibly annoying at their worst.
+
+So I decided to make them much more annoying.
+
+Phantoms will now spawn every 10 seconds during night in numbers according to your Attrition level.\
+A lack of Attrition would mean no Phantoms spawn, IV would mean 4 would spawn.\
+They only spawn if you are not under a block, so it is encouraged to stay inside during night.
+
+They attack the player even if they are possessing a mob. Even possessing a Phantom does not stop these beasts.
+
+With their 60 soul damage, it's easy for them to deck even a netherite-clad player.\
+Make sure to remember that reaching Attrition IV from soul damage will kill you, so no amount of armor will stop them.
+</details>
+
+######
+<details>
+  <summary>Items</summary>
+
+<details>
+  <summary>Roasted Spider Eye</summary>
+
+Effectively a very cheap way of gaining weakness. \
+You can gain this item by cooking a spider eye with a campfire.
+
+This will weaken the poison, allowing consumption with only a *moderate* amount of nerve damage.
+</details>
+<details>
+  <summary>Eau De Mort</summary>
+
+Hands down the most interesting item in this mod. 
+
+Although, it doesn't exactly have much competition.
+
+An Eau De Mort allows you to separate from a host, keeping the items intact so that the next host will keep them.
+
+Drinking it while human is NOT ADVISED.
+
+You can gain this item one of two ways:
+1. Finding it in loot. (Mostly nether loot)
+2. Creating it.
+
+In order to create this, you must first brew a Potion of Withering. \
+To get a Potion of Withering you must brew a Wither Rose into an unmodified weakness potion (default state, duration, and amplifier).
+
+Once you have the Potion of Withering, you must obtain a Totem of Undying.
+
+Being saved by a Totem of Undying will convert all unmodified potions of Withering into Eau De Morts.
+</details>
+</details>
+
+######
+<details>
+  <summary>Enchantments</summary>
+
+<details>
+  <summary>Soul Cleaving</summary>
+
+Soul Cleaving has a maximum level of III.\
+It can be gained through an enchanting table or through Nether loot.
+
+Inflicts 30 x (level) soul damage on the victim.
+</details>
+<details>
+  <summary>Reaping</summary>
+
+Reaping has only one level and has two effects:
+
+The primary effect is that it deals 3 x (Victim's Attrition level) magic damage to the victim.
+
+The secondary effect is that it converts mobs that are on normal fire, to being on soul fire.\
+It also converts flaming arrows that are shot from it into soul flaming arrows.
+
+If you want a 'soul flaming' sword or bow, then you need to have both Reaping and their respective fire enchantment.
+</details>
+</details>
+
+######
+<details>
+  <summary>Soul fire</summary>
+
+This mod implements MoriyaShiine's [On Soul Fire](https://www.curseforge.com/minecraft/mc-mods/on-soul-fire) mod.
+</details>
+
+######
+<details>
+  <summary>Misc</summary>
+
+* (Configurable via gamerule) Enchanted golden apples can be used to cure without weakness applied to the player.
 
 
-### Additional Changes
-* Zombies can only eat rotten flesh by default
-* Skeletons now use bone meal instead, and it only heals 2 health (because the cooldown is lower than rotten flesh).
-* Enchanted golden apples can be used to cure without weakness applied to the player. They can now be crafted using the golden apple recipe, but with golden blocks instead of ingots.
-* (Latest commit) Blocks with a blast resistance of 1200 (obsidian level) or higher cannot be phased through. Happy ghost-trapping :)
+* (Configurable via gamerule) Blocks with a blast resistance of 1200 (obsidian level) or higher cannot be phased through. Happy ghost-trapping :)
+
+
+* You cannot cure Attrition via milk or most other methods.
+</details>
 
 ### Gamerules
-* ``mementomori:attritionPermaDeath`` -Controls the softlocking of possession when >= Attrition V. [DEFAULT: true]
-* ``mementomori:cureAllItems`` -Controls whether or not ``cure_alls`` items can cure a possessed without the weakness debuf. [DEFAULT: true]
-* ``mementomori:slowAttritionFade`` -Controls whether or not attrition will decrease a level at a time, instead of completely disapearing. [DEFAULT: true]
+* ``mementomori:cureAllItems`` -Controls whether or not ``cure_alls`` items can cure a possessed without the weakness debuff. [DEFAULT: true]
+* ``mementomori:attritionGrowth`` -Controls whether or not attrition will increase as a mob. [DEFAULT: true]
 * ``mementomori:blastResistantUnphasable`` Controls if players are not able to go through blocks with a blast resistance of 1,200 or higher. [DEFAULT: true]
 * ``mementomori:attritionTime`` Controls the amount of time, in seconds, that a player has attrition for. [DEFAULT: 1200 (which is 20 minutes))]

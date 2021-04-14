@@ -51,6 +51,7 @@ public abstract class LivingEntityMixin extends Entity {
             if (!type.equals(EntityType.PLAYER)) {
                 if (thisType.equals(EntityType.VILLAGER) ||
                     thisType.equals(EntityType.PILLAGER) ||
+                    thisType.equals(EntityType.WITCH) ||
                     thisType.equals(EntityType.IRON_GOLEM) ||
                     thisType.equals(EntityType.SNOW_GOLEM) ||
                     thisType.equals(EntityType.VINDICATOR) ||
