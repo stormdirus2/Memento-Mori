@@ -17,7 +17,6 @@
     "PhantomEntityMixin",
     "PlayerEntityMixin",
     "PossessionComponentImplMixin",
-    "RequiemClientMixin",
     "StatusEffectInstanceMixin",
     "StatusEffectReapplicatorImplMixin"
   ],
