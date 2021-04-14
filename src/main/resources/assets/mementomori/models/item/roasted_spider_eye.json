@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mementomori:items/roasted_spider_eye"
+  }
+}

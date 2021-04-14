@@ -1,0 +1,11 @@
+{
+  "enchantment.mementomori.soul_cleaving": "Soul Cleaving",
+  "enchantment.mementomori.reaping": "Reaping",
+  "item.mementomori.eau_de_mort": "Eau De Mort",
+  "item.mementomori.roasted_spider_eye": "Roasted Spider Eye",
+  "item.minecraft.potion.effect.Withering": "Potion of Withering",
+  "item.minecraft.splash_potion.effect.Withering": "Splash Potion of Withering",
+  "item.minecraft.lingering_potion.effect.Withering": "Lingering Potion of Withering",
+  "item.minecraft.tipped_arrow.effect.Withering": "Arrow of Withering",
+  "effect.mementomori.satiation": "Satiation"
+}

@@ -63,20 +63,15 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    // modRuntime ("com.github.jellysquid3:sodium-fabric:${project.sodium_version}") { exclude ( group: "net.fabricmc.fabric-api" ) }
     modRuntime("me.sargunvohra.mcmods:autoconfig1u:${autoconfig_version}")
     modRuntime "io.github.cottonmc:LibGui:${libgui_version}"
     modRuntime "net.earthcomputer:libstructure:1.5"
-    modCompileOnly("curse.maven:haema-391257:${haema_version}")
-    modRuntime("curse.maven:haema-391257:${haema_version}")
-    modRuntime("net.fabricmc:fabric-language-kotlin:${flk_version}")
     modRuntime("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cca_version}")
-    modCompileOnly("curse.maven:golems-galore-387197:${golems_galore_version}")
-    modCompileOnly("curse.maven:the-bumblezone-fabric-363949:${bumblezone_version}")
     modImplementation "me.zeroeightsix:fiber:${project.fiber_version}"
     modImplementation ("me.shedaniel.cloth:config-2:${project.cloth_version}")
     modImplementation "io.github.ladysnake:requiem-api:${project.requiem_version}"
     modImplementation "io.github.ladysnake:requiem:${project.requiem_version}"
+    modImplementation(include("curse.maven:on-soul-fire-394667:${project.on_soul_fire_version}"))
 }
 
 processResources {

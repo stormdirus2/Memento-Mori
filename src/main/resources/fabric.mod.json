@@ -24,10 +24,12 @@
   "mixins": [
     "mementomori.mixins.json"
   ],
+
   "depends": {
     "fabricloader": ">=0.11.1",
     "minecraft": ">=1.16.2",
     "fabric": "*",
-    "requiem": "*"
+    "requiem": "*",
+    "onsoulfire": "*"
   }
 }

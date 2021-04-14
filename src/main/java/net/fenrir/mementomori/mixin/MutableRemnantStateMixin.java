@@ -20,15 +20,26 @@ public abstract class MutableRemnantStateMixin {
     @Inject(method = "prepareRespawn", at = @At("RETURN"), cancellable = true, remap = false)
     private void addAttrition(ServerPlayerEntity original, boolean lossless, CallbackInfo ci) {
         StatusEffectInstance effect = original.getStatusEffect(RequiemStatusEffects.ATTRITION);
-        if (effect != null && effect.getAmplifier() < 4) {
-            this.player.applyStatusEffect(new StatusEffectInstance(
-                    RequiemStatusEffects.ATTRITION,
-                    this.player.world.getGameRules().getInt(MementoMori.attritionTime)*20,
-                    effect.getAmplifier() + 1,
-                    false,
-                    false,
-                    true
-            ));
+        if (effect != null) {
+            if (effect.getAmplifier() < 3) {
+                this.player.applyStatusEffect(new StatusEffectInstance(
+                        RequiemStatusEffects.ATTRITION,
+                        this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
+                        effect.getAmplifier() + 1,
+                        false,
+                        false,
+                        true
+                ));
+            } else {
+                this.player.applyStatusEffect(new StatusEffectInstance(
+                        RequiemStatusEffects.ATTRITION,
+                        this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
+                        effect.getAmplifier(),
+                        false,
+                        false,
+                        true
+                ));
+            }
         }
     }
 }

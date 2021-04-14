@@ -5,12 +5,18 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractBlockStateMixin",
+    "ArrowEntityMixin",
     "AttritionStatusEffectMixin",
     "BasePossessionHandlersMixin",
+    "BrewingRecipeRegistryMixin",
+    "ItemMixin",
+    "LivingEntityMixin",
+    "MobEntityMixin",
     "MutableRemnantStateMixin",
+    "PhantomEntityMixin",
+    "PlayerEntityMixin",
     "PossessionComponentImplMixin",
-    "RequiemItemTagsMixin",
-    "SkeletonBoneComponentMixin",
+    "StatusEffectInstanceMixin",
     "StatusEffectReapplicatorImplMixin"
   ],
   "client": [

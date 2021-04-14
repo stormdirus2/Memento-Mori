@@ -19,10 +19,12 @@ public abstract class PossessionComponentImplMixin {
     @Shadow @Final private PlayerEntity player;
 
     @Inject(method = "canBeCured", at = @At("RETURN"), cancellable = true, remap = false)
-    private void addAttrition(ItemStack cure, CallbackInfoReturnable<Boolean> cir) {
+    private void canEat(ItemStack cure, CallbackInfoReturnable<Boolean> cir) {
         MobEntity possessedEntity = this.getPossessedEntity();
-        if (possessedEntity != null && MementoMori.CURE_ALLS.contains(cure.getItem()) && this.player.world.getGameRules().getBoolean(MementoMori.cureAlls)) {
-            cir.setReturnValue(true);
+        if (possessedEntity != null) {
+            if (MementoMori.CURE_ALLS.contains(cure.getItem()) && this.player.world.getGameRules().getBoolean(MementoMori.cureAlls)) {
+                cir.setReturnValue(true);
+            }
         }
     }
 
