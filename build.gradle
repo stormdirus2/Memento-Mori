@@ -41,6 +41,9 @@ repositories {
         url = 'https://dl.bintray.com/ladysnake/libs'
     }
     maven {
+        url = "https://maven.shedaniel.me/"
+    }
+    maven {
         url = 'https://www.cursemaven.com'
         content {
             includeGroup 'curse.maven'
@@ -58,20 +61,20 @@ repositories {
 
 dependencies {
     // base
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_build}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings "net.fabricmc:yarn:${minecraft_version}+build.${yarn_build}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     modRuntime("me.sargunvohra.mcmods:autoconfig1u:${autoconfig_version}")
     modRuntime "io.github.cottonmc:LibGui:${libgui_version}"
     modRuntime "net.earthcomputer:libstructure:1.5"
     modRuntime("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${project.cca_version}")
-    modImplementation "me.zeroeightsix:fiber:${project.fiber_version}"
-    modImplementation ("me.shedaniel.cloth:config-2:${project.cloth_version}")
-    modImplementation "io.github.ladysnake:requiem-api:${project.requiem_version}"
-    modImplementation "io.github.ladysnake:requiem:${project.requiem_version}"
-    modImplementation(include("curse.maven:on-soul-fire-394667:${project.on_soul_fire_version}"))
+    modImplementation "me.zeroeightsix:fiber:${fiber_version}"
+    modImplementation ("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}")
+    modImplementation "io.github.ladysnake:requiem-api:${requiem_version}"
+    modImplementation "io.github.ladysnake:requiem:${requiem_version}"
+    modImplementation(include("curse.maven:on-soul-fire-394667:${on_soul_fire_version}"))
 }
 
 processResources {
