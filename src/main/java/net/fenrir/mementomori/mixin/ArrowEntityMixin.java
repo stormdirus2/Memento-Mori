@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ArrowEntity.class)
-public class ArrowEntityMixin {
-
+public class ArrowEntityMixin  {
     @Inject(method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V", at = @At("TAIL"))
     private void addSoulFire(World world, LivingEntity owner, CallbackInfo ci) {
         if (EnchantmentHelper.getLevel(MementoMori.REAPING, owner.getActiveItem()) > 0) {

@@ -36,8 +36,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "damage", at = @At("RETURN"), cancellable = true)
     private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue()) { return; }
         Entity attacker = source.getAttacker();
+        if (!cir.getReturnValue()) { return; }
         if ((source == DamageSource.ON_FIRE && ((OnSoulFireAccessor) this).getOnSoulFire())
                 || source == DamageSource.WITHER
                 || source == DamageSource.DRAGON_BREATH

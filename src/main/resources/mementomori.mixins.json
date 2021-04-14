@@ -12,10 +12,12 @@
     "ItemMixin",
     "LivingEntityMixin",
     "MobEntityMixin",
+    "ModelLoaderMixin",
     "MutableRemnantStateMixin",
     "PhantomEntityMixin",
     "PlayerEntityMixin",
     "PossessionComponentImplMixin",
+    "RequiemClientMixin",
     "StatusEffectInstanceMixin",
     "StatusEffectReapplicatorImplMixin"
   ],

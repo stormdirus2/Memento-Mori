@@ -50,6 +50,7 @@ import java.util.Random;
 public class MementoMori implements ModInitializer {
     public static final String MOD_ID = "mementomori";
     public static final String MOD_NAME = "Memento Mori";
+    public static final Identifier REPLACE_BOOK = new Identifier("mementomori","replace_book");
     private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");;
     private static final Identifier BASTION_TREASURE = new Identifier("minecraft", "chests/bastion_treasure");
     private static final Identifier RUINED_PORTAL = new Identifier("minecraft", "chests/ruined_portal");
@@ -109,15 +110,16 @@ public class MementoMori implements ModInitializer {
     public static final GameRules.Key<GameRules.IntRule> attritionTime =
             register("attritionTime", GameRuleFactory.createIntRule(1200, 0), GameRules.Category.PLAYER);
 
-
+    public static final Identifier soulCleaving = new Identifier("mementomori", "soul_cleaving");
     private static Enchantment SOUL_CLEAVING = Registry.register(
             Registry.ENCHANTMENT,
             new Identifier("mementomori", "soul_cleaving"),
             new SoulCleaving()
     );
+    public static final Identifier reaping = new Identifier("mementomori", "reaping");
     public static Enchantment REAPING = Registry.register(
             Registry.ENCHANTMENT,
-            new Identifier("mementomori", "reaping"),
+            reaping,
             new Reaping()
     );
 
