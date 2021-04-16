@@ -41,17 +41,17 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import java.util.Random;
 
 public class MementoMori implements ModInitializer {
     public static final String MOD_ID = "mementomori";
     public static final String MOD_NAME = "Memento Mori";
     public static final Identifier REPLACE_BOOK = new Identifier("mementomori","replace_book");
-    private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");;
+    private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");
     private static final Identifier BASTION_TREASURE = new Identifier("minecraft", "chests/bastion_treasure");
     private static final Identifier RUINED_PORTAL = new Identifier("minecraft", "chests/ruined_portal");
     private static final Identifier BASTION_OTHER = new Identifier("minecraft", "chests/bastion_other");
@@ -152,11 +152,6 @@ public class MementoMori implements ModInitializer {
                                 for (int i = 0; i < (effect.getAmplifier() + 1); i++) {
                                     PhantomEntity phantom = EntityType.PHANTOM.create(server.getOverworld(), null, null, null, new BlockPos(player.getX(), player.getY() + 25, player.getZ()), SpawnReason.NATURAL, true, false);
                                     server.getOverworld().spawnEntity(phantom);
-                                    if (Host != null) {
-                                        phantom.setTarget(Host);
-                                    } else {
-                                        phantom.setTarget(player);
-                                    }
                                 }
                             }
                         }

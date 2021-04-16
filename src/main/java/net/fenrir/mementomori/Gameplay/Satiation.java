@@ -20,6 +20,7 @@ public class Satiation extends StatusEffect {
         }
         return time;
     }
+
     public static void setTotalTime(LivingEntity Entity, int time) {
         Entity.removeStatusEffect(MementoMori.SATIATION);
         Entity.applyStatusEffect(new StatusEffectInstance(
@@ -31,7 +32,8 @@ public class Satiation extends StatusEffect {
                 true
         ));
     }
-    public static void IncrementSatiation (LivingEntity Entity, int Increment) {
-        setTotalTime(Entity, Math.max(getTotalTime(Entity) + Increment,0));
+
+    public static void IncrementSatiation(LivingEntity Entity, int Increment) {
+        setTotalTime(Entity, Math.max(getTotalTime(Entity) + Increment, 0));
     }
 }

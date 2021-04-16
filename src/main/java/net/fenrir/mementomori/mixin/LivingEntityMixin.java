@@ -2,7 +2,9 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
+import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
 import net.fenrir.mementomori.Gameplay.Satiation;
+import net.fenrir.mementomori.Gameplay.SoulDamage;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,10 +22,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import net.fenrir.mementomori.Gameplay.SoulDamage;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {

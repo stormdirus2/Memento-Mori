@@ -31,11 +31,12 @@ public class EauDeMort extends Item {
     public SoundEvent getEatSound() {
         return getDrinkSound();
     }
+
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity)user : null;
+        PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity) user : null;
         if (playerEntity instanceof ServerPlayerEntity) {
-            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)playerEntity, stack);
+            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) playerEntity, stack);
             PossessionComponent possessionComponent = PossessionComponent.get(playerEntity);
             MobEntity possessedEntity = possessionComponent.getPossessedEntity();
             if (possessedEntity != null) {

@@ -13,7 +13,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 public class Reaping extends Enchantment {
 
     public Reaping() {
-        super(Rarity.VERY_RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.VERY_RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
@@ -32,12 +32,12 @@ public class Reaping extends Enchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(target instanceof LivingEntity) {
+        if (target instanceof LivingEntity) {
             ((OnSoulFireAccessor) target).setOnSoulFire(true);
             StatusEffectInstance attrition = ((LivingEntity) target).getStatusEffect(RequiemStatusEffects.ATTRITION);
             if (attrition != null) {
                 float power = attrition.getAmplifier() + 1;
-                target.damage(DamageSource.MAGIC,power*3);
+                target.damage(DamageSource.MAGIC, power * 3);
             }
         }
         super.onTargetDamaged(user, target, level);

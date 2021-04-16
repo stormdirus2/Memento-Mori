@@ -9,12 +9,12 @@ import net.minecraft.entity.LivingEntity;
 public class SoulCleaving extends Enchantment {
 
     public SoulCleaving() {
-        super(Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
     public int getMinPower(int level) {
-        return 5*level;
+        return 5 * level;
     }
 
     public int getMaxPower(int level) {
@@ -28,8 +28,8 @@ public class SoulCleaving extends Enchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(target instanceof LivingEntity) {
-            SoulDamage.IncrementSoul((LivingEntity) target,30*level);
+        if (target instanceof LivingEntity) {
+            SoulDamage.IncrementSoul((LivingEntity) target, 30 * level);
         }
         super.onTargetDamaged(user, target, level);
     }
