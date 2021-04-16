@@ -15,11 +15,11 @@
     "ModelLoaderMixin",
     "MutableRemnantStateMixin",
     "PhantomEntityMixin",
+    "PhantomTargetMixin",
     "PlayerEntityMixin",
     "PossessionComponentImplMixin",
     "StatusEffectInstanceMixin",
-    "StatusEffectReapplicatorImplMixin",
-    "PhantomTargetMixin"
+    "StatusEffectReapplicatorImplMixin"
   ],
   "client": [
   ],

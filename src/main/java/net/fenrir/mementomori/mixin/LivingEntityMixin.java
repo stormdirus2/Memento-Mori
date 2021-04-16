@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
 
@@ -89,5 +90,10 @@ public abstract class LivingEntityMixin extends Entity {
                 slot = inventory.getSlotWithStack(stack);
             }
         }
+    }
+
+    @Inject(method = "pushAwayFrom", at = @At("HEAD"), cancellable = true)
+    public void noTouchyTouch(Entity entity, CallbackInfo ci) {
+        //Overridden
     }
 }
