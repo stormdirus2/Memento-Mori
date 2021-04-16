@@ -18,7 +18,8 @@
     "PlayerEntityMixin",
     "PossessionComponentImplMixin",
     "StatusEffectInstanceMixin",
-    "StatusEffectReapplicatorImplMixin"
+    "StatusEffectReapplicatorImplMixin",
+    "PhantomTargetMixin"
   ],
   "client": [
   ],

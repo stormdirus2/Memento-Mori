@@ -147,7 +147,7 @@ public class MementoMori implements ModInitializer {
                         StatusEffectInstance effect = player.getStatusEffect(RequiemStatusEffects.ATTRITION);
                         LivingEntity Host = PossessionComponent.getPossessedEntity(player);
                         boolean isSpirit = RemnantComponent.isIncorporeal(player);
-                        if (effect != null) {
+                        if (effect != null && player.world.getLightLevel(player.getBlockPos()) < 5) {
                             if (player.world == server.getOverworld() && (!isSpirit || Host != null) && !player.isCreative() && player.getBlockPos().getY() >= player.world.getSeaLevel() && player.world.isSkyVisible(player.getBlockPos()) && player.world.getBlockState(player.getBlockPos().up(25)).isAir()) {
                                 for (int i = 0; i < (effect.getAmplifier() + 1); i++) {
                                     PhantomEntity phantom = EntityType.PHANTOM.create(server.getOverworld(), null, null, null, new BlockPos(player.getX(), player.getY() + 25, player.getZ()), SpawnReason.NATURAL, true, false);
