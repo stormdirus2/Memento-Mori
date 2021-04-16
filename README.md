@@ -5,6 +5,17 @@ Obviously, this mod requires Requiem. It has been tested with version 1.5.1, but
 
 ### Changes:
 <details>
+  <summary>Possession</summary>
+
+Now, if you touch a mob while possessing, they will be alerted of your player-hood.
+
+Therefore, hostile mobs will attack you even while possessing their brethren if you collide with em'.
+
+So stay alert, on your toes, and avoid getting too close!
+</details>
+
+######
+<details>
   <summary>Attrition</summary>
 
 Attrition has been completely reworked.\
@@ -91,16 +102,30 @@ Lastly, the new enchantment, Soul Cleaving, inflicts soul damage 30 x (level).
 I always thought Phantoms were so cool visually and in how their attack patterns work.\
 Sadly, they are quite irrelevant at their best, and incredibly annoying at their worst.
 
-So I decided to make them much more annoying.
+
+
+So I decided to make them much more interesting.
+
+
 
 Phantoms will now spawn every 10 seconds during night in numbers according to your Attrition level.\
-A lack of Attrition would mean no Phantoms spawn, IV would mean 4 would spawn.\
+A lack of Attrition would mean no Phantoms spawn, IV would mean 4 would spawn.
+
+\
 They only spawn if you are not under a block, so it is encouraged to stay inside during night.
 
 They attack the player even if they are possessing a mob. Even possessing a Phantom does not stop these beasts.
 
-With their 60 soul damage, it's easy for them to deck even a netherite-clad player.\
+With their 60 soul damage, it's easy for them to deck even a netherite-clad player.
+
+
 Make sure to remember that reaching Attrition IV from soul damage will kill you, so no amount of armor will stop them.
+\
+So... what WILL stop them?
+
+Light.
+
+If you are in a spot with light, not only will they not spawn, but existing ones will not be able to even touch you.
 </details>
 
 ######
