@@ -36,11 +36,9 @@ public abstract class MobEntityMixin extends LivingEntityMixin {
     public void noTouchyTouch(Entity entity, CallbackInfo ci) {
         if (entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
-            if (living != null) {
-                Possessable host = (Possessable) entity;
-                if (host != null && host.isBeingPossessed() && this.canTarget(EntityType.PLAYER)) {
-                    this.setTarget(living);
-                }
+            Possessable host = (Possessable) entity;
+            if (host != null && host.isBeingPossessed() && this.canTarget(EntityType.PLAYER)) {
+                this.setTarget(living);
             }
         }
     }

@@ -29,13 +29,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityMixin extends Entity {
 
 
-    @Shadow @Nullable private LivingEntity attacker;
-
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Inject(method = "damage", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "damage", at = @At("RETURN"))
     private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         Entity attacker = source.getAttacker();
         if (!cir.getReturnValue()) { return; }
