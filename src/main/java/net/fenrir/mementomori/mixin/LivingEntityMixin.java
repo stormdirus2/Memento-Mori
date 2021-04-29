@@ -3,6 +3,8 @@ package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.api.v1.possession.Possessable;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fenrir.mementomori.Gameplay.Satiation;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
 import net.fenrir.mementomori.MementoMori;
@@ -70,7 +72,19 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
     }
+    private boolean areItemsEqual(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem() == stack2.getItem() && ItemStack.areTagsEqual(stack1, stack2);
+    }
+    public int getSlotWithStack(PlayerInventory inventory,ItemStack stack) {
+        for(int i = 0; i < inventory.main.size(); ++i) {
+            if (!(inventory.main.get(i)).isEmpty() && areItemsEqual(stack, inventory.main.get(i))) {
+                return i;
+            }
+        }
 
+        return -1;
+    }
+    
     @Inject(method = "tryUseTotem", at = @At("RETURN"), cancellable = true)
     public void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> callbackInfo) {
         LivingEntity user = (LivingEntity) (Object) this;
@@ -82,7 +96,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (playerEntity instanceof ServerPlayerEntity) {
             PlayerInventory inventory = playerEntity.inventory;
             ItemStack stack = PotionUtil.setPotion(new ItemStack(Items.POTION), MementoMori.WITHER);
-            int slot = inventory.getSlotWithStack(stack);
+            int slot = getSlotWithStack(inventory, stack);
             while (slot >= 0 && inventory.isValid(slot,stack)) {
                 inventory.setStack(slot,new ItemStack(MementoMori.EAU_DE_MORT));
                 slot = inventory.getSlotWithStack(stack);
