@@ -23,7 +23,7 @@ public class Satiation extends StatusEffect {
 
     public static void setTotalTime(LivingEntity Entity, int time) {
         Entity.removeStatusEffect(MementoMori.SATIATION);
-        Entity.applyStatusEffect(new StatusEffectInstance(
+        Entity.addStatusEffect(new StatusEffectInstance(
                 MementoMori.SATIATION,
                 time,
                 0,

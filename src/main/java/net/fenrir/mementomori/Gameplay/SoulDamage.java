@@ -22,7 +22,7 @@ public class SoulDamage {
         int attritionTime = Entity.world.getGameRules().getInt(MementoMori.attritionTime) * 20;
         Entity.removeStatusEffect(RequiemStatusEffects.ATTRITION);
         int amplifier = Math.min((time - time % attritionTime) / attritionTime, 3);
-        Entity.applyStatusEffect(new StatusEffectInstance(
+        Entity.addStatusEffect(new StatusEffectInstance(
                 RequiemStatusEffects.ATTRITION,
                 (time - amplifier * attritionTime),
                 amplifier,

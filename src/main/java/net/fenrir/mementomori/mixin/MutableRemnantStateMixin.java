@@ -22,7 +22,7 @@ public abstract class MutableRemnantStateMixin {
         StatusEffectInstance effect = original.getStatusEffect(RequiemStatusEffects.ATTRITION);
         if (effect != null) {
             if (effect.getAmplifier() < 3) {
-                this.player.applyStatusEffect(new StatusEffectInstance(
+                this.player.addStatusEffect(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
                         this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
                         effect.getAmplifier() + 1,
@@ -31,7 +31,7 @@ public abstract class MutableRemnantStateMixin {
                         true
                 ));
             } else {
-                this.player.applyStatusEffect(new StatusEffectInstance(
+                this.player.addStatusEffect(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
                         this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
                         effect.getAmplifier(),
