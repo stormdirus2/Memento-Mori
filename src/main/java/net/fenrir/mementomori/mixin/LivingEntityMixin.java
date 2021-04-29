@@ -99,7 +99,7 @@ public abstract class LivingEntityMixin extends Entity {
             int slot = getSlotWithStack(inventory, stack);
             while (slot >= 0 && inventory.isValid(slot,stack)) {
                 inventory.setStack(slot,new ItemStack(MementoMori.EAU_DE_MORT));
-                slot = inventory.getSlotWithStack(stack);
+                slot = getSlotWithStack(inventory, stack);
             }
         }
     }
