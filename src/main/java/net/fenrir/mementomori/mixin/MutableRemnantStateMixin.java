@@ -12,10 +12,13 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 @Mixin(MutableRemnantState.class)
 public abstract class MutableRemnantStateMixin {
 
-    @Shadow @Final protected PlayerEntity player;
+    @Shadow
+    @Final
+    protected PlayerEntity player;
 
     @Inject(method = "prepareRespawn", at = @At("RETURN"), cancellable = true, remap = false)
     private void addAttrition(ServerPlayerEntity original, boolean lossless, CallbackInfo ci) {
@@ -42,4 +45,7 @@ public abstract class MutableRemnantStateMixin {
             }
         }
     }
+
+    @Shadow
+    public abstract boolean isVagrant();
 }

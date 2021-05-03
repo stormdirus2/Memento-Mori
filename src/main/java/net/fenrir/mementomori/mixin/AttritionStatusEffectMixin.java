@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AttritionStatusEffect.class)
 public abstract class AttritionStatusEffectMixin {
-    @Inject(method="addAttrition",at=@At("HEAD"),cancellable = true,remap = false)
+    @Inject(method = "addAttrition", at = @At("HEAD"), cancellable = true, remap = false)
     private static void addAttrition(LivingEntity target, int amplifier, CallbackInfo ci) {
         target.addStatusEffect(new StatusEffectInstance(
                 RequiemStatusEffects.ATTRITION,
-                target.world.getGameRules().getInt(MementoMori.attritionTime)*20,
+                target.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
                 amplifier,
                 false,
                 false,

@@ -19,7 +19,7 @@ public abstract class PhantomTargetMixin extends LivingEntity {
     @Override
     public boolean canTarget(LivingEntity entity) {
         Possessable host = (Possessable) entity;
-        PlayerEntity playerEntity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
+        PlayerEntity playerEntity = entity instanceof PlayerEntity ? (PlayerEntity) entity : null;
         if (playerEntity != null) {
             RemnantComponent component = RemnantComponent.get(playerEntity);
             return !component.isIncorporeal();

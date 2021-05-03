@@ -20,8 +20,8 @@ public abstract class BrewingRecipeRegistryMixin {
     private static void registerPotionRecipe(Potion input, Item item, Potion output) {
     }
 
-    @Inject(method = "registerDefaults",at = @At("TAIL"))
+    @Inject(method = "registerDefaults", at = @At("TAIL"))
     private static void addWither(CallbackInfo ci) {
-        registerPotionRecipe(Potions.WEAKNESS, Items.WITHER_ROSE,WITHER);
+        registerPotionRecipe(Potions.WEAKNESS, Items.WITHER_ROSE, WITHER);
     }
 }

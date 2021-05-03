@@ -35,8 +35,9 @@ public class SoulDamage {
     public static void IncrementSoul(LivingEntity Entity, int Increment) {
         int total = Math.max(getTotalTime(Entity) + Increment * 20, 0);
         int attritionTime = Entity.world.getGameRules().getInt(MementoMori.attritionTime) * 20;
-        int totalTime = attritionTime * 3;
-        if (total < totalTime) {
+        int deathLevel = Entity.world.getGameRules().getInt(MementoMori.soulDamageDeathLevel);
+        int totalTime = attritionTime * (deathLevel - 1);
+        if (deathLevel < 0 || (total < totalTime && deathLevel > 0)) {
             setTotalTime(Entity, total);
         } else {
             setTotalTime(Entity, total);

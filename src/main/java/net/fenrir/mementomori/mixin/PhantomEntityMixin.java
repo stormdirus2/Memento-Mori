@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PhantomEntityMixin extends MobEntityMixin {
 
 
+    private boolean takeBreak = false;
+
     protected PhantomEntityMixin(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    private boolean takeBreak = false;
-
     @Override
-    public void retrieve(CallbackInfoReturnable<LivingEntity>  cir) {
+    public void retrieve(CallbackInfoReturnable<LivingEntity> cir) {
         if (takeBreak) {
             LivingEntity target = cir.getReturnValue();
             if (target == null || world.getLightLevel(target.getBlockPos()) > 4) {

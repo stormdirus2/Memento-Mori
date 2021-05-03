@@ -15,12 +15,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = AbstractBlock.AbstractBlockState.class,priority = 999)
-public abstract class AbstractBlockStateMixin  {
+@Mixin(value = AbstractBlock.AbstractBlockState.class, priority = 999)
+public abstract class AbstractBlockStateMixin {
     @Shadow
     public abstract Block getBlock();
 
-    @Shadow public abstract VoxelShape getCollisionShape(BlockView world, BlockPos pos);
+    @Shadow
+    public abstract VoxelShape getCollisionShape(BlockView world, BlockPos pos);
 
     @Inject(
             at = @At(value = "HEAD"),
@@ -29,7 +30,7 @@ public abstract class AbstractBlockStateMixin  {
     )
     private void preventPhasing(BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> info) {
         if (((ExtendedShapeContext) context).requiem_isNoClipping() && this.getBlock().getBlastResistance() >= 1200 && MementoMori.getBlastUnphasable((World) world)) {
-            info.setReturnValue(this.getCollisionShape(world,pos));
+            info.setReturnValue(this.getCollisionShape(world, pos));
         }
     }
 }

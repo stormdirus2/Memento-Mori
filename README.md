@@ -208,6 +208,8 @@ This mod implements MoriyaShiine's [On Soul Fire](https://www.curseforge.com/min
 
 
 * You cannot cure Attrition via milk or most other methods.
+
+* Spiders are guaranteed to drop spider eyes, even if not killed by a player.
 </details>
 
 ### Gamerules
@@ -215,3 +217,5 @@ This mod implements MoriyaShiine's [On Soul Fire](https://www.curseforge.com/min
 * ``mementomori:attritionGrowth`` -Controls whether or not attrition will increase as a mob. [DEFAULT: true]
 * ``mementomori:blastResistantUnphasable`` Controls if players are not able to go through blocks with a blast resistance of 1,200 or higher. [DEFAULT: true]
 * ``mementomori:attritionTime`` Controls the amount of time, in seconds, that a player has attrition for. [DEFAULT: 1200 (which is 20 minutes))]
+* ``mementomori:phantomSpawnCount`` Controls the amount of phantoms that spawn per level of attrition. [DEFAULT: 1]
+* ``mementomori:soulDamageDeathLevel`` Controls level of attrition at which soul damage will kill the player indiscriminately. [DEFAULT: 4, put -1 to disable]

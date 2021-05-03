@@ -151,9 +151,6 @@ loom {
     }
 }
 
-processResources {
-    finalizedBy runData
-}
 
 sourceSets.main.resources {
     srcDirs += "$projectDir/src/generated/resources"

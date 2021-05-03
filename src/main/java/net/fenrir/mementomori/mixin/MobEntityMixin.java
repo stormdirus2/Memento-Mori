@@ -19,16 +19,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MobEntityMixin extends LivingEntityMixin {
 
 
-    @Shadow public abstract boolean canTarget(EntityType<?> type);
-
-    @Shadow public abstract void setTarget(@Nullable LivingEntity target);
-
     protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    @Inject(method = "getTarget", at = @At("RETURN"),cancellable = true)
-    public void retrieve(CallbackInfoReturnable<LivingEntity>  cir) {
+    @Shadow
+    public abstract boolean canTarget(EntityType<?> type);
+
+    @Shadow
+    public abstract void setTarget(@Nullable LivingEntity target);
+
+    @Inject(method = "getTarget", at = @At("RETURN"), cancellable = true)
+    public void retrieve(CallbackInfoReturnable<LivingEntity> cir) {
         // Overridden
     }
 

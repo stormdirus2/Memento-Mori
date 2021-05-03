@@ -17,14 +17,18 @@ import java.util.Collection;
 
 @Mixin(StatusEffectReapplicatorImpl.class)
 public abstract class StatusEffectReapplicatorImplMixin implements StatusEffectReapplicator {
-    @Shadow @Final private Collection<StatusEffectInstance> reappliedEffects;
+    @Shadow
+    @Final
+    private Collection<StatusEffectInstance> reappliedEffects;
 
-    @Shadow @Final private LivingEntity holder;
+    @Shadow
+    @Final
+    private LivingEntity holder;
 
     @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"), cancellable = true, remap = false)
     protected void noRemove(StatusEffectInstance effect, CallbackInfo ci) {
         if (effect.getEffectType() == RequiemStatusEffects.ATTRITION) {
-            if (effect.getDuration() > 0 ) {
+            if (effect.getDuration() > 0) {
                 this.reappliedEffects.add(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
                         effect.getDuration(),
@@ -36,7 +40,7 @@ public abstract class StatusEffectReapplicatorImplMixin implements StatusEffectR
             } else if (effect.getAmplifier() > 0) {
                 this.reappliedEffects.add(new StatusEffectInstance(
                         RequiemStatusEffects.ATTRITION,
-                        holder.world.getGameRules().getInt(MementoMori.attritionTime)*20,
+                        holder.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
                         effect.getAmplifier() - 1,
                         false,
                         false,

@@ -50,29 +50,7 @@ import java.util.regex.Pattern;
 public class MementoMori implements ModInitializer {
     public static final String MOD_ID = "mementomori";
     public static final String MOD_NAME = "Memento Mori";
-    public static final Identifier REPLACE_BOOK = new Identifier("mementomori","replace_book");
-    private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");
-    private static final Identifier BASTION_TREASURE = new Identifier("minecraft", "chests/bastion_treasure");
-    private static final Identifier RUINED_PORTAL = new Identifier("minecraft", "chests/ruined_portal");
-    private static final Identifier BASTION_OTHER = new Identifier("minecraft", "chests/bastion_other");
-    private static final Identifier LIBRARY = new Identifier("minecraft", "chests/stronghold_library");
-    private static final Identifier MANSION = new Identifier("minecraft", "chests/woodland_mansion");
-    private static final Identifier END_CITY = new Identifier("minecraft", "chests/end_city_treasure");
-    private static final Random RANDOM = new Random();
-    public static boolean getBlastUnphasable(World world) {
-        if (world.isClient()) {
-            return MementoMori_CLIENT.blastUnphasable;
-        } else {
-            return world.getGameRules().getBoolean(blastUnphasable);
-        }
-    }
-    public static boolean getAttritionGrowth(World world) {
-        if (world.isClient()) {
-            return MementoMori_CLIENT.attritionGrowth;
-        } else {
-            return world.getGameRules().getBoolean(attritionGrowth);
-        }
-    }
+    public static final Identifier REPLACE_BOOK = new Identifier("mementomori", "replace_book");
     public static final FoodComponent DRINK = new FoodComponent.Builder()
             .alwaysEdible()
             .build();
@@ -81,20 +59,18 @@ public class MementoMori implements ModInitializer {
                     StatusEffects.WEAKNESS,
                     140,
                     0
-            ),1).build();
-
+            ), 1).build();
     public static final StatusEffect SATIATION = new Satiation();
-
     public static final Potion WITHER = new Potion("Withering", new StatusEffectInstance(StatusEffects.WITHER, 600));
-
     public static final Item EAU_DE_MORT = new EauDeMort(new Item.Settings().food(DRINK).maxCount(1).fireproof().rarity(Rarity.RARE).recipeRemainder(Items.GLASS_BOTTLE).group(ItemGroup.MISC));
-
     public static final Item ROASTED_SPIDER_EYE = new Consumable(new Item.Settings().food(TAINTED_MEAT).group(ItemGroup.FOOD));
-
-    public static final Tag<Item> CURE_ALLS = TagRegistry.item(new Identifier(MOD_ID,"cure_alls"));
-
+    public static final Tag<Item> CURE_ALLS = TagRegistry.item(new Identifier(MOD_ID, "cure_alls"));
     public static final GameRules.Key<GameRules.BooleanRule> cureAlls =
             register("cureAllItems", GameRuleFactory.createBooleanRule(true), GameRules.Category.PLAYER);
+    public static final GameRules.Key<GameRules.IntRule> soulDamageDeathLevel =
+            register("soulDamageDeathLevel", GameRuleFactory.createIntRule(4, -1, 4), GameRules.Category.PLAYER);
+    public static final GameRules.Key<GameRules.IntRule> phantomSpawnCount =
+            register("phantomSpawnCount", GameRuleFactory.createIntRule(1, 0), GameRules.Category.PLAYER);
     public static final GameRules.Key<GameRules.BooleanRule> attritionGrowth =
             register("attritionGrowth", GameRuleFactory.createBooleanRule(true, (server, rule) -> {
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -109,19 +85,46 @@ public class MementoMori implements ModInitializer {
             }), GameRules.Category.PLAYER);
     public static final GameRules.Key<GameRules.IntRule> attritionTime =
             register("attritionTime", GameRuleFactory.createIntRule(1200, 0), GameRules.Category.PLAYER);
-
     public static final Identifier soulCleaving = new Identifier("mementomori", "soul_cleaving");
-    private static Enchantment SOUL_CLEAVING = Registry.register(
+    public static final Identifier reaping = new Identifier("mementomori", "reaping");
+    private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");
+    private static final Identifier BASTION_TREASURE = new Identifier("minecraft", "chests/bastion_treasure");
+    private static final Identifier RUINED_PORTAL = new Identifier("minecraft", "chests/ruined_portal");
+    private static final Identifier BASTION_OTHER = new Identifier("minecraft", "chests/bastion_other");
+    private static final Identifier LIBRARY = new Identifier("minecraft", "chests/stronghold_library");
+    private static final Identifier MANSION = new Identifier("minecraft", "chests/woodland_mansion");
+    private static final Identifier END_CITY = new Identifier("minecraft", "chests/end_city_treasure");
+    private static final Random RANDOM = new Random();
+    private static final Enchantment SOUL_CLEAVING = Registry.register(
             Registry.ENCHANTMENT,
             new Identifier("mementomori", "soul_cleaving"),
             new SoulCleaving()
     );
-    public static final Identifier reaping = new Identifier("mementomori", "reaping");
     public static Enchantment REAPING = Registry.register(
             Registry.ENCHANTMENT,
             reaping,
             new Reaping()
     );
+
+    public static boolean getBlastUnphasable(World world) {
+        if (world.isClient()) {
+            return MementoMori_CLIENT.blastUnphasable;
+        } else {
+            return world.getGameRules().getBoolean(blastUnphasable);
+        }
+    }
+
+    public static boolean getAttritionGrowth(World world) {
+        if (world.isClient()) {
+            return MementoMori_CLIENT.attritionGrowth;
+        } else {
+            return world.getGameRules().getBoolean(attritionGrowth);
+        }
+    }
+
+    private static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type, GameRules.Category category) {
+        return GameRuleRegistry.register(MOD_ID + ":" + name, category, type);
+    }
 
     @Override
     public void onInitialize() {
@@ -135,12 +138,13 @@ public class MementoMori implements ModInitializer {
             buf1.writeBoolean(handler.player.world.getGameRules().getBoolean(attritionGrowth));
             PacketByteBuf buf2 = PacketByteBufs.create();
             buf2.writeBoolean(handler.player.world.getGameRules().getBoolean(blastUnphasable));
-            ServerPlayNetworking.send(handler.player,new Identifier("mementomori:attrition_growth"), buf1);
-            ServerPlayNetworking.send(handler.player,new Identifier("mementomori:blast_unphasable"), buf2);
+            ServerPlayNetworking.send(handler.player, new Identifier("mementomori:attrition_growth"), buf1);
+            ServerPlayNetworking.send(handler.player, new Identifier("mementomori:blast_unphasable"), buf2);
         });
         AtomicInteger phantomTick = new AtomicInteger();
         ServerTickCallback.EVENT.register((server) -> {
-            if (server.getOverworld().isNight()) {
+            int phantomSpawnCount = server.getGameRules().getInt(MementoMori.phantomSpawnCount);
+            if (server.getOverworld().isNight() && phantomSpawnCount > 0) {
                 phantomTick.getAndIncrement();
                 if (phantomTick.get() >= 200) {
                     server.getPlayerManager().getPlayerList().forEach((player) -> {
@@ -149,7 +153,7 @@ public class MementoMori implements ModInitializer {
                         boolean isSpirit = RemnantComponent.isIncorporeal(player);
                         if (effect != null && player.world.getLightLevel(player.getBlockPos()) < 5) {
                             if (player.world == server.getOverworld() && (!isSpirit || Host != null) && !player.isCreative() && player.getBlockPos().getY() >= player.world.getSeaLevel() && player.world.isSkyVisible(player.getBlockPos()) && player.world.getBlockState(player.getBlockPos().up(25)).isAir()) {
-                                for (int i = 0; i < (effect.getAmplifier() + 1); i++) {
+                                for (int i = 0; i < (effect.getAmplifier() + 1)*phantomSpawnCount; i++) {
                                     PhantomEntity phantom = EntityType.PHANTOM.create(server.getOverworld(), null, null, null, new BlockPos(player.getX(), player.getY() + 25, player.getZ()), SpawnReason.NATURAL, true, false);
                                     server.getOverworld().spawnEntity(phantom);
                                 }
@@ -176,7 +180,7 @@ public class MementoMori implements ModInitializer {
             if (chance != 0) {
                 Logger.getLogger(MOD_ID).log(Level.INFO, id.toString());
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantLootTableRange.create(1)) // Same as "rolls": 1 in the loot table json
+                        .rolls(ConstantLootTableRange.create(1))
                         .withEntry(ItemEntry.builder(EAU_DE_MORT).build())
                         .withCondition(RandomChanceLootCondition.builder(chance).build());
 
@@ -188,7 +192,7 @@ public class MementoMori implements ModInitializer {
             if (NETHER_CHEST.matcher(id.getPath()).matches()) {
                 Logger.getLogger(MOD_ID).log(Level.INFO, id.toString());
                 FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantLootTableRange.create(1)) // Same as "rolls": 1 in the loot table json
+                        .rolls(ConstantLootTableRange.create(1))
                         .withEntry(ItemEntry.builder(Items.BOOK).apply(() -> new LootFunction() {
                             @Override
                             public LootFunctionType getType() {
@@ -228,12 +232,7 @@ public class MementoMori implements ModInitializer {
             }
         });
 
-
         Logger.getLogger(MOD_ID).log(Level.INFO, "[" + MOD_NAME + "] " + "Initialized");
-    }
-
-    private static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type, GameRules.Category category) {
-        return GameRuleRegistry.register(MOD_ID + ":" + name, category, type);
     }
 }
 
