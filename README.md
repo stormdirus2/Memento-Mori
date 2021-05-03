@@ -7,9 +7,9 @@ Obviously, this mod requires Requiem. It has been tested with version 1.5.1, but
 <details>
   <summary>Possession</summary>
 
-Now, if you touch a mob while possessing, they will be alerted of your player-hood.
+Now, if you touch a mob while possessing, they will be alerted of your unnatural state.
 
-Therefore, hostile mobs will attack you even while possessing their brethren if you collide with em'.
+Therefore, hostile and neutral mobs will attack you even while possessing their brethren if you collide with em'.
 
 So stay alert, on your toes, and avoid getting too close!
 </details>

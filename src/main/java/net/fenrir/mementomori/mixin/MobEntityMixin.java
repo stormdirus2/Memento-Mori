@@ -39,7 +39,7 @@ public abstract class MobEntityMixin extends LivingEntityMixin {
         if (entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
             Possessable host = (Possessable) entity;
-            if (host != null && host.isBeingPossessed() && this.canTarget(EntityType.PLAYER)) {
+            if (host != null && host.isBeingPossessed() && canTarget(EntityType.PLAYER)) {
                 this.setTarget(living);
             }
         }
