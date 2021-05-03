@@ -11,7 +11,11 @@ Now, if you touch a mob while possessing, they will be alerted of your unnatural
 
 Therefore, hostile and neutral mobs will attack you even while possessing their brethren if you collide with em'.
 
-So stay alert, on your toes, and avoid getting too close!
+Additionally, while possessing a mob you have the default harvest level of a wooden pickaxe.
+Using blocks that usually require tools to mine, you can adjust your mining speed to that of a stone pickaxe. Albeit, with the harvest level staying at wooden.
+
+Finally, potential hosts will spawn upon death - and over time while incorporeal.
+Hosts may spawn in such a fashion as to protect themselves from the sun.
 </details>
 
 ######
@@ -56,7 +60,7 @@ You can also, however, gain it in smaller quantities (1/4th) from Piglins.
 * Piglin Brutes
 </details>
 
-To put this into context, 20 damage (A Villager's max health) will equal out to 5 minutes of 'Satiation'.
+To put this into context, 20 damage (A Villager's max health) will equal out to 15 minutes of 'Satiation'.
 Therefore, you would need to deal 80 damage against Piglins to reach the same duration.
 </details>
 
@@ -208,6 +212,8 @@ This mod implements MoriyaShiine's [On Soul Fire](https://www.curseforge.com/min
 
 
 * You cannot cure Attrition via milk or most other methods.
+
+* You can craft bones via placing 3 bonemeal in a crafting gird.
 
 * Spiders are guaranteed to drop spider eyes, even if not killed by a player.
 </details>
