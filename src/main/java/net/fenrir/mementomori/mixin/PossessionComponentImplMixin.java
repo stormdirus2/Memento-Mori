@@ -3,6 +3,7 @@ package net.fenrir.mementomori.mixin;
 import ladysnake.requiem.api.v1.possession.Possessable;
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.impl.possession.PossessionComponentImpl;
+import net.fenrir.mementomori.Gameplay.SummonPossessable;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
@@ -15,6 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Mixin(PossessionComponentImpl.class)
 public abstract class PossessionComponentImplMixin {
@@ -54,6 +58,19 @@ public abstract class PossessionComponentImplMixin {
                 false,
                 true
             ));
+        }
+    }
+
+    @Inject(
+        method = "stopPossessing(Z)V",
+        at = @At("TAIL"),
+        remap = false
+    )
+    public void spawnNewHost(boolean transfer, CallbackInfo ci) {
+        if (transfer && !player.world.isClient) {
+            if (getPossessedEntity() == null || getPossessedEntity().isDead()) {
+                SummonPossessable.spawnPossessable(player.getBlockPos(),player.world);
+            }
         }
     }
 

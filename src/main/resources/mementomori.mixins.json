@@ -4,6 +4,7 @@
   "package": "net.fenrir.mementomori.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AbstractBlockMixin",
     "AbstractBlockStateMixin",
     "ArrowEntityMixin",
     "AttritionStatusEffectMixin",
@@ -18,6 +19,7 @@
     "PhantomTargetMixin",
     "PlayerEntityMixin",
     "PossessionComponentImplMixin",
+    "ServerPlayerInteractionManagerMixin",
     "StatusEffectInstanceMixin",
     "StatusEffectReapplicatorImplMixin"
   ],

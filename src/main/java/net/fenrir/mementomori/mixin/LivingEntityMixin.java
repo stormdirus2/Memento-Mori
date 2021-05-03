@@ -55,9 +55,9 @@ public abstract class LivingEntityMixin extends Entity {
                         thisType.equals(EntityType.VINDICATOR) ||
                         thisType.equals(EntityType.EVOKER)
                 ) {
-                    Satiation.IncrementSatiation((LivingEntity) attacker, (int) Math.floor(amount * 300));
+                    Satiation.IncrementSatiation((LivingEntity) attacker, (int) Math.floor(amount * 900));
                 } else if (thisType.equals(EntityType.PIGLIN) || thisType.equals(EntityType.PIGLIN_BRUTE)) {
-                    Satiation.IncrementSatiation((LivingEntity) attacker, (int) Math.floor(amount * 75));
+                    Satiation.IncrementSatiation((LivingEntity) attacker, (int) Math.floor(amount * 225));
                 }
             }
             if (type.equals(EntityType.PHANTOM)) {

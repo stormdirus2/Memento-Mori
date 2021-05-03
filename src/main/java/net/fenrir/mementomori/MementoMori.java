@@ -23,7 +23,9 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PhantomEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -142,11 +144,11 @@ public class MementoMori implements ModInitializer {
             ServerPlayNetworking.send(handler.player, new Identifier("mementomori:blast_unphasable"), buf2);
         });
         AtomicInteger phantomTick = new AtomicInteger();
+        AtomicInteger hostTick = new AtomicInteger();
         ServerTickCallback.EVENT.register((server) -> {
             int phantomSpawnCount = server.getGameRules().getInt(MementoMori.phantomSpawnCount);
             if (server.getOverworld().isNight() && phantomSpawnCount > 0) {
-                phantomTick.getAndIncrement();
-                if (phantomTick.get() >= 200) {
+                if (phantomTick.incrementAndGet() >= 200) {
                     server.getPlayerManager().getPlayerList().forEach((player) -> {
                         StatusEffectInstance effect = player.getStatusEffect(RequiemStatusEffects.ATTRITION);
                         LivingEntity Host = PossessionComponent.getPossessedEntity(player);
@@ -162,6 +164,17 @@ public class MementoMori implements ModInitializer {
                     });
                     phantomTick.set(0);
                 }
+            }
+            if (hostTick.incrementAndGet() >= 400) {
+                server.getPlayerManager().getPlayerList().forEach((player) -> {
+                    if (RemnantComponent.get(player).isIncorporeal() && !PossessionComponent.get(player).isPossessing()) {
+                        MobEntity lastOffered = ((Unposessable) player).getLastOffered();
+                        if (lastOffered == null ||  lastOffered.distanceTo(player) > 25) {
+                            ((Unposessable) player).setLastOffered(SummonPossessable.spawnPossessable(player.getBlockPos(),player.world));
+                        }
+                    }
+                });
+                hostTick.set(0);
             }
 
         });

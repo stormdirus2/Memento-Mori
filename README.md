@@ -20,7 +20,7 @@ So stay alert, on your toes, and avoid getting too close!
 
 Attrition has been completely reworked.\
 Its effect now lasts a default of 20 minutes (configurable through gamerules). \
-Additionally, each time Attrition runs out, it goes down a level instead of simply disapearing.\
+Additionally, each time Attrition runs out, it goes down a level instead of simply disappearing.\
 For example: An Attrition level of IV would take 80 minutes to completely go away. 
 
 While not in human form, Attrition ticks upwards instead of downwards. This can be prevented by gaining the status effect 'Satiation'. This is also configurable through gamerules.\
