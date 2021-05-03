@@ -8,6 +8,7 @@
   "item.minecraft.lingering_potion.effect.Withering": "Lingering Potion of Withering",
   "item.minecraft.tipped_arrow.effect.Withering": "Arrow of Withering",
   "effect.mementomori.satiation": "Satiation",
+  "effect.mementomori.mudsoaked": "Mudsoaked",
   "gamerule.mementomori:attritionGrowth": "Attrition growth during possession",
   "gamerule.mementomori:attritionGrowth.description": "Controls whether attrition will grow over time while possessing a mob.",
   "gamerule.mementomori:attritionTime": "Attrition duration",

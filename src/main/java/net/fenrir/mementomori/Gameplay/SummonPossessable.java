@@ -4,8 +4,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ServerWorldAccess;
@@ -17,7 +15,7 @@ import java.util.Random;
 public class SummonPossessable {
 
     private static final Random random = new Random();
-    
+
     public static MobEntity spawnReinforcement(MobEntity entity, BlockPos pos) {
         if (entity != null) {
             int i = MathHelper.floor(pos.getX());
@@ -55,7 +53,7 @@ public class SummonPossessable {
     }
 
     public static MobEntity spawnPossessable(BlockPos pos, World world) {
-        BlockPos ground = getGround(pos,world);
+        BlockPos ground = getGround(pos, world);
         if (ground != null) {
             BlockPos placement = ground.up(2);
             if (world.getBiome(placement).getCategory() == Biome.Category.NETHER) {
@@ -64,18 +62,13 @@ public class SummonPossessable {
                 return spawnReinforcement(EntityType.WITHER_SKELETON.create(world), placement);
             } else if (world.getBiome(placement).getCategory() == Biome.Category.DESERT) {
                 return spawnReinforcement(EntityType.HUSK.create(world), placement);
-            } else if (placement.getY() >= 40 || world.isSkyVisibleAllowingSea(placement)) {
-                MobEntity entity = EntityType.SKELETON.create(world);
-                if (entity != null) {
-                    entity.tryEquip(new ItemStack(Items.CHAINMAIL_HELMET));
-                    return spawnReinforcement(entity, placement);
-                }
             } else if (world.getBlockState(pos).getMaterial().isLiquid()) {
                 return spawnReinforcement(EntityType.DROWNED.create(world), placement);
+            } else if (world.isNight() || !world.isSkyVisible(placement)) {
+                return spawnReinforcement(EntityType.SKELETON.create(world), placement);
             }
-            return spawnReinforcement(EntityType.SKELETON.create(world), placement);
         }
         return null;
     }
-    
+
 }

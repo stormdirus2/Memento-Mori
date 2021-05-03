@@ -15,9 +15,9 @@ public interface Unposessable {
 
     MobEntity getLast();
 
+    void setLast(MobEntity last);
+
     MobEntity getLastOffered();
 
     void setLastOffered(MobEntity last);
-
-    void setLast(MobEntity last);
 }

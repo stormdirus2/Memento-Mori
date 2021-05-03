@@ -21,7 +21,8 @@
     "PossessionComponentImplMixin",
     "ServerPlayerInteractionManagerMixin",
     "StatusEffectInstanceMixin",
-    "StatusEffectReapplicatorImplMixin"
+    "StatusEffectReapplicatorImplMixin",
+    "ZombieEntityMixin"
   ],
   "client": [
   ],

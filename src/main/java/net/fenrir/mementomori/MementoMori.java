@@ -25,7 +25,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PhantomEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -63,6 +62,7 @@ public class MementoMori implements ModInitializer {
                     0
             ), 1).build();
     public static final StatusEffect SATIATION = new Satiation();
+    public static final StatusEffect MUDSOAKED = new Mudsoaked();
     public static final Potion WITHER = new Potion("Withering", new StatusEffectInstance(StatusEffects.WITHER, 600));
     public static final Item EAU_DE_MORT = new EauDeMort(new Item.Settings().food(DRINK).maxCount(1).fireproof().rarity(Rarity.RARE).recipeRemainder(Items.GLASS_BOTTLE).group(ItemGroup.MISC));
     public static final Item ROASTED_SPIDER_EYE = new Consumable(new Item.Settings().food(TAINTED_MEAT).group(ItemGroup.FOOD));
@@ -134,6 +134,7 @@ public class MementoMori implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("mementomori", "roasted_spider_eye"), ROASTED_SPIDER_EYE);
         Registry.register(Registry.POTION, "withering", WITHER);
         Registry.register(Registry.STATUS_EFFECT, new Identifier("mementomori", "satiation"), SATIATION);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier("mementomori", "mudsoaked"), MUDSOAKED);
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             PacketByteBuf buf1 = PacketByteBufs.create();
@@ -155,7 +156,7 @@ public class MementoMori implements ModInitializer {
                         boolean isSpirit = RemnantComponent.isIncorporeal(player);
                         if (effect != null && player.world.getLightLevel(player.getBlockPos()) < 5) {
                             if (player.world == server.getOverworld() && (!isSpirit || Host != null) && !player.isCreative() && player.getBlockPos().getY() >= player.world.getSeaLevel() && player.world.isSkyVisible(player.getBlockPos()) && player.world.getBlockState(player.getBlockPos().up(25)).isAir()) {
-                                for (int i = 0; i < (effect.getAmplifier() + 1)*phantomSpawnCount; i++) {
+                                for (int i = 0; i < (effect.getAmplifier() + 1) * phantomSpawnCount; i++) {
                                     PhantomEntity phantom = EntityType.PHANTOM.create(server.getOverworld(), null, null, null, new BlockPos(player.getX(), player.getY() + 25, player.getZ()), SpawnReason.NATURAL, true, false);
                                     server.getOverworld().spawnEntity(phantom);
                                 }
@@ -169,8 +170,8 @@ public class MementoMori implements ModInitializer {
                 server.getPlayerManager().getPlayerList().forEach((player) -> {
                     if (RemnantComponent.get(player).isIncorporeal() && !PossessionComponent.get(player).isPossessing()) {
                         MobEntity lastOffered = ((Unposessable) player).getLastOffered();
-                        if (lastOffered == null ||  lastOffered.distanceTo(player) > 25) {
-                            ((Unposessable) player).setLastOffered(SummonPossessable.spawnPossessable(player.getBlockPos(),player.world));
+                        if (lastOffered == null || lastOffered.distanceTo(player) > 25) {
+                            ((Unposessable) player).setLastOffered(SummonPossessable.spawnPossessable(player.getBlockPos(), player.world));
                         }
                     }
                 });

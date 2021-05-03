@@ -36,6 +36,17 @@ For future reference, the maximum Attrition level is IV.
 
 ######
 <details>
+  <summary>Mudsoaked</summary>
+
+By using dirt while possessed, you gain the effect Mudsoaked.\
+While mudsoaked, mobs that would usually be set on fire in the daylight instead take minor fire damage over time. 
+
+This means player can use dirt as an emergency item to prevent taking substantial fire damage in the absence of more efficient ways to avoid it.
+
+</details>
+
+######
+<details>
   <summary>Satiation</summary>
 
 Satiation is a new effect that a player can get while possessing a mob from attacking certain types of mobs.

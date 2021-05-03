@@ -19,7 +19,8 @@ public class ServerPlayerInteractionManagerMixin {
 
     @Shadow
     public ServerWorld world;
-    @Shadow public ServerPlayerEntity player;
+    @Shadow
+    public ServerPlayerEntity player;
     private BlockState lastBlockState;
     private BlockPos lastPos;
 
@@ -32,7 +33,7 @@ public class ServerPlayerInteractionManagerMixin {
     @ModifyVariable(method = "tryBreakBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;postMine(Lnet/minecraft/world/World;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V"), ordinal = 1)
     private boolean modifyEffectiveTool(boolean original) {
         if (PossessionComponent.get(player).isPossessing()) {
-            if (Items.WOODEN_PICKAXE.canMine(lastBlockState,world,lastPos, player)) {
+            if (Items.WOODEN_PICKAXE.canMine(lastBlockState, world, lastPos, player)) {
                 return true;
             }
         }

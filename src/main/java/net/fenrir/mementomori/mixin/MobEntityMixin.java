@@ -2,6 +2,8 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
+import net.fenrir.mementomori.Gameplay.BurnsInDaylightInterface;
+import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MobEntity.class)
-public abstract class MobEntityMixin extends LivingEntityMixin {
+public abstract class MobEntityMixin extends LivingEntityMixin implements BurnsInDaylightInterface {
 
 
     protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
@@ -34,6 +36,17 @@ public abstract class MobEntityMixin extends LivingEntityMixin {
         // Overridden
     }
 
+    @Inject(
+            method = "isAffectedByDaylight",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    public void mudEffect(CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValue()) {
+            cir.setReturnValue(getStatusEffect(MementoMori.MUDSOAKED) == null);
+        }
+    }
+
     @Override
     public void noTouchyTouch(Entity entity, CallbackInfo ci) {
         if (entity instanceof LivingEntity) {
@@ -43,6 +56,11 @@ public abstract class MobEntityMixin extends LivingEntityMixin {
                 this.setTarget(living);
             }
         }
+    }
+
+    @Override
+    public boolean getBurnsInDaylight() {
+        return false;
     }
 
 }

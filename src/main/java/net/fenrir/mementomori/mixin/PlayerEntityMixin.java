@@ -20,21 +20,21 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Unposess
     private MobEntity last;
     private MobEntity lastOffered;
 
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
     @Inject(
-        method = "onDeath",
-        at = @At("TAIL")
+            method = "onDeath",
+            at = @At("TAIL")
     )
     public void spawnNewHost(DamageSource source, CallbackInfo ci) {
         if (RemnantComponent.get((PlayerEntity) (Object) this).isIncorporeal()) {
             LivingEntity entity = PossessionComponent.get((PlayerEntity) (Object) this).getPossessedEntity();
             if (entity == null || entity.isDead()) {
-                SummonPossessable.spawnPossessable(getBlockPos(),world);
+                SummonPossessable.spawnPossessable(getBlockPos(), world);
             }
         }
-    }
-
-    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
-        super(entityType, world);
     }
 
     @Override

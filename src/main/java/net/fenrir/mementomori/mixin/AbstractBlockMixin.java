@@ -7,8 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractBlock.class)
 public abstract class AbstractBlockMixin {
 
-    @Shadow protected abstract Block asBlock();
+    @Shadow
+    protected abstract Block asBlock();
 
     @Inject(at = @At("RETURN"), method = "calcBlockBreakingDelta", cancellable = true)
     private void modifyBlockBreakSpeed(BlockState state, PlayerEntity player, BlockView world, BlockPos pos, CallbackInfoReturnable<Float> info) {
@@ -31,7 +30,7 @@ public abstract class AbstractBlockMixin {
                 Item item = stack.getItem();
                 Block block = Block.getBlockFromItem(item);
                 if (block != null && block.getDefaultState().isToolRequired()) {
-                    info.setReturnValue(base*12);
+                    info.setReturnValue(base * 12);
                 }
             }
         }

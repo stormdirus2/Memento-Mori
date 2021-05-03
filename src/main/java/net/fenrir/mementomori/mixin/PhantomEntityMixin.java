@@ -34,4 +34,10 @@ public abstract class PhantomEntityMixin extends MobEntityMixin {
             cir.setReturnValue(null);
         }
     }
+
+    @Override
+    public boolean getBurnsInDaylight() {
+        return true;
+    }
+
 }

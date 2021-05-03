@@ -17,9 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Mixin(PossessionComponentImpl.class)
 public abstract class PossessionComponentImplMixin {
 
@@ -42,34 +39,34 @@ public abstract class PossessionComponentImplMixin {
     }
 
     @Inject(
-        method = "startPossessing0",
-        at = @At("TAIL"),
-        remap = false
+            method = "startPossessing0",
+            at = @At("TAIL"),
+            remap = false
     )
     public void avoidPrematureDeath(MobEntity host, Possessable possessable, CallbackInfo ci) {
         StatusEffectInstance attrition = player.getStatusEffect(RequiemStatusEffects.ATTRITION);
-        if (attrition != null && attrition.getDuration() == player.world.getGameRules().getInt(MementoMori.attritionTime)*20 && attrition.getAmplifier() < 3) {
+        if (attrition != null && attrition.getDuration() == player.world.getGameRules().getInt(MementoMori.attritionTime) * 20 && attrition.getAmplifier() < 3) {
             player.removeStatusEffect(RequiemStatusEffects.ATTRITION);
             player.addStatusEffect(new StatusEffectInstance(
-                RequiemStatusEffects.ATTRITION,
-                1,
-                attrition.getAmplifier() + 1,
-                false,
-                false,
-                true
+                    RequiemStatusEffects.ATTRITION,
+                    1,
+                    attrition.getAmplifier() + 1,
+                    false,
+                    false,
+                    true
             ));
         }
     }
 
     @Inject(
-        method = "stopPossessing(Z)V",
-        at = @At("TAIL"),
-        remap = false
+            method = "stopPossessing(Z)V",
+            at = @At("TAIL"),
+            remap = false
     )
     public void spawnNewHost(boolean transfer, CallbackInfo ci) {
         if (transfer && !player.world.isClient) {
             if (getPossessedEntity() == null || getPossessedEntity().isDead()) {
-                SummonPossessable.spawnPossessable(player.getBlockPos(),player.world);
+                SummonPossessable.spawnPossessable(player.getBlockPos(), player.world);
             }
         }
     }

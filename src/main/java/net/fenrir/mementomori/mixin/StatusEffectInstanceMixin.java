@@ -1,6 +1,5 @@
 package net.fenrir.mementomori.mixin;
 
-import ladysnake.requiem.api.v1.possession.Possessable;
 import ladysnake.requiem.api.v1.possession.PossessionComponent;
 import ladysnake.requiem.api.v1.remnant.RemnantComponent;
 import ladysnake.requiem.api.v1.remnant.StickyStatusEffect;
