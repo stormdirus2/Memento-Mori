@@ -2,6 +2,7 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
+import ladysnake.requiem.common.util.DamageHelper;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
 import net.fenrir.mementomori.Gameplay.Satiation;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
@@ -12,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -24,11 +26,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+
+
+    @Shadow
+    protected int playerHitTimer;
+    @Shadow
+    protected PlayerEntity attackingPlayer;
 
 
     public LivingEntityMixin(EntityType<?> type, World world) {
@@ -111,8 +120,35 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @ModifyVariable(method = "drop", at = @At(value = "HEAD"), argsOnly = true)
+    private DamageSource makeSpidersDropEyes(DamageSource deathCause) {
+        if (((LivingEntity) (Object) this) instanceof SpiderEntity) {
+            PlayerEntity possessor = ((Possessable) deathCause.getAttacker()).getPossessor();
+            if (possessor != null) {
+                this.playerHitTimer = 100;
+                this.attackingPlayer = possessor;
+                DamageSource proxiedDamage = DamageHelper.createProxiedDamage(deathCause, possessor);
+                if (proxiedDamage != null) {
+                    return proxiedDamage;
+                }
+            }
+        }
+        return deathCause;
+    }
+
+
     @Inject(method = "pushAwayFrom", at = @At("HEAD"), cancellable = true)
     public void noTouchyTouch(Entity entity, CallbackInfo ci) {
         //Overridden
     }
+
+    @Inject(
+        method = "tryAttack",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    public void tryAttacking(Entity target, CallbackInfoReturnable<Boolean> cir) {
+        //Overridden
+    }
+
 }
