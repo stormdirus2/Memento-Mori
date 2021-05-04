@@ -21,6 +21,7 @@
     "PossessionComponentImplMixin",
     "ServerPlayerInteractionManagerMixin",
     "SkeletonEntityMixin",
+    "SpiderEntityMixin",
     "StatusEffectInstanceMixin",
     "StatusEffectReapplicatorImplMixin",
     "ZombieEntityMixin"

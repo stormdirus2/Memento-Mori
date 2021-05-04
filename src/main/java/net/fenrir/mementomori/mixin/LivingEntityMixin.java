@@ -121,18 +121,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @ModifyVariable(method = "drop", at = @At(value = "HEAD"), argsOnly = true)
-    private DamageSource makeSpidersDropEyes(DamageSource deathCause) {
-        if (((LivingEntity) (Object) this) instanceof SpiderEntity) {
-            PlayerEntity possessor = ((Possessable) deathCause.getAttacker()).getPossessor();
-            if (possessor != null) {
-                this.playerHitTimer = 100;
-                this.attackingPlayer = possessor;
-                DamageSource proxiedDamage = DamageHelper.createProxiedDamage(deathCause, possessor);
-                if (proxiedDamage != null) {
-                    return proxiedDamage;
-                }
-            }
-        }
+    public DamageSource makeSpidersDropEyes(DamageSource deathCause) {
         return deathCause;
     }
 
