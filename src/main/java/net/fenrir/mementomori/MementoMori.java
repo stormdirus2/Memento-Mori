@@ -63,9 +63,11 @@ public class MementoMori implements ModInitializer {
             ), 1).build();
     public static final StatusEffect SATIATION = new Satiation();
     public static final StatusEffect MUDSOAKED = new Mudsoaked();
+    public static final StatusEffect ALLEVIATION = new Alleviation();
     public static final Potion WITHER = new Potion("Withering", new StatusEffectInstance(StatusEffects.WITHER, 600));
     public static final Item EAU_DE_MORT = new EauDeMort(new Item.Settings().food(DRINK).maxCount(1).fireproof().rarity(Rarity.RARE).recipeRemainder(Items.GLASS_BOTTLE).group(ItemGroup.MISC));
     public static final Item ROASTED_SPIDER_EYE = new Consumable(new Item.Settings().food(TAINTED_MEAT).group(ItemGroup.FOOD));
+    public static final Item SOUL_SALVE = new SoulSalve(new Item.Settings().rarity(Rarity.UNCOMMON).group(ItemGroup.TOOLS));
     public static final Tag<Item> CURE_ALLS = TagRegistry.item(new Identifier(MOD_ID, "cure_alls"));
     public static final GameRules.Key<GameRules.BooleanRule> cureAlls =
             register("cureAllItems", GameRuleFactory.createBooleanRule(true), GameRules.Category.PLAYER);
@@ -86,7 +88,7 @@ public class MementoMori implements ModInitializer {
                 server.getPlayerManager().sendToAll(ServerSidePacketRegistry.INSTANCE.toPacket(new Identifier("mementomori:blast_unphasable"), buf));
             }), GameRules.Category.PLAYER);
     public static final GameRules.Key<GameRules.IntRule> attritionTime =
-            register("attritionTime", GameRuleFactory.createIntRule(1200, 0), GameRules.Category.PLAYER);
+            register("attritionTime", GameRuleFactory.createIntRule(600, 0), GameRules.Category.PLAYER);
     public static final Identifier soulCleaving = new Identifier("mementomori", "soul_cleaving");
     public static final Identifier reaping = new Identifier("mementomori", "reaping");
     private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");
@@ -132,8 +134,10 @@ public class MementoMori implements ModInitializer {
     public void onInitialize() {
         Registry.register(Registry.ITEM, new Identifier("mementomori", "eau_de_mort"), EAU_DE_MORT);
         Registry.register(Registry.ITEM, new Identifier("mementomori", "roasted_spider_eye"), ROASTED_SPIDER_EYE);
+        Registry.register(Registry.ITEM, new Identifier("mementomori", "soul_salve"), SOUL_SALVE);
         Registry.register(Registry.POTION, "withering", WITHER);
         Registry.register(Registry.STATUS_EFFECT, new Identifier("mementomori", "satiation"), SATIATION);
+        Registry.register(Registry.STATUS_EFFECT, new Identifier("mementomori", "alleviation"), ALLEVIATION);
         Registry.register(Registry.STATUS_EFFECT, new Identifier("mementomori", "mudsoaked"), MUDSOAKED);
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

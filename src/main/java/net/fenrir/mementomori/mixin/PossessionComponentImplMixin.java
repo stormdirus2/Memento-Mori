@@ -24,6 +24,8 @@ public abstract class PossessionComponentImplMixin {
     @Shadow
     @Final
     private PlayerEntity player;
+    @Shadow
+    private int conversionTimer;
 
     @Shadow
     public abstract MobEntity getPossessedEntity();
@@ -35,6 +37,17 @@ public abstract class PossessionComponentImplMixin {
             if (MementoMori.CURE_ALLS.contains(cure.getItem()) && player.world.getGameRules().getBoolean(MementoMori.cureAlls)) {
                 cir.setReturnValue(true);
             }
+        }
+    }
+
+    @Inject(
+            method = "startCuring",
+            at = @At("TAIL"),
+            remap = false
+    )
+    public void avoidCuringTimer(CallbackInfo ci) {
+        if (!player.world.isClient) {
+            conversionTimer = 1;
         }
     }
 

@@ -2,18 +2,20 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
-import ladysnake.requiem.common.util.DamageHelper;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
+import net.fenrir.mementomori.Gameplay.AttributeHelper;
 import net.fenrir.mementomori.Gameplay.Satiation;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -35,10 +37,11 @@ public abstract class LivingEntityMixin extends Entity {
 
 
     @Shadow
+    public float flyingSpeed;
+    @Shadow
     protected int playerHitTimer;
     @Shadow
     protected PlayerEntity attackingPlayer;
-
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -47,6 +50,13 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow
     @Nullable
     public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
+
+    @Shadow
+    public abstract boolean hasStatusEffect(StatusEffect effect);
+
+    @Shadow
+    @Nullable
+    public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
     @Inject(method = "damage", at = @At("RETURN"))
     private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -125,6 +135,17 @@ public abstract class LivingEntityMixin extends Entity {
         return deathCause;
     }
 
+    @Inject(
+            method = "getAttributeValue",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    public void maxHealthWithoutAttrition(EntityAttribute attribute, CallbackInfoReturnable<Double> cir) {
+        if (attribute == EntityAttributes.GENERIC_MAX_HEALTH && hasStatusEffect(MementoMori.ALLEVIATION)) {
+            cir.setReturnValue(AttributeHelper.getValueWithoutAttrition(getAttributeInstance(attribute)));
+        }
+    }
+
 
     @Inject(method = "pushAwayFrom", at = @At("HEAD"), cancellable = true)
     public void noTouchyTouch(Entity entity, CallbackInfo ci) {
@@ -132,9 +153,9 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(
-        method = "tryAttack",
-        at = @At("HEAD"),
-        cancellable = true
+            method = "tryAttack",
+            at = @At("HEAD"),
+            cancellable = true
     )
     public void tryAttacking(Entity target, CallbackInfoReturnable<Boolean> cir) {
         //Overridden

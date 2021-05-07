@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
@@ -43,6 +44,7 @@ public class EauDeMort extends Item {
                 Unposessable.of(playerEntity).ifPresent(Unposessable -> Unposessable.setLast(possessedEntity));
                 possessionComponent.stopPossessing(false);
                 RequiemNetworking.sendEtherealAnimationMessage((ServerPlayerEntity) playerEntity);
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CONDUIT_DEACTIVATE, user.getSoundCategory(), 1.0F, 1.0F);
             } else {
                 playerEntity.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.WITHER,

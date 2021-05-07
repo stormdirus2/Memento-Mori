@@ -33,17 +33,19 @@ public class SoulDamage {
     }
 
     public static void IncrementSoul(LivingEntity Entity, int Increment) {
-        int total = Math.max(getTotalTime(Entity) + Increment * 20, 0);
         int attritionTime = Entity.world.getGameRules().getInt(MementoMori.attritionTime) * 20;
-        int deathLevel = Entity.world.getGameRules().getInt(MementoMori.soulDamageDeathLevel);
-        int totalTime = attritionTime * (deathLevel - 1);
-        if (deathLevel < 0 || (total < totalTime && deathLevel > 0)) {
-            setTotalTime(Entity, total);
-        } else {
-            setTotalTime(Entity, total);
-            PlayerEntity player = Entity instanceof PlayerEntity ? (PlayerEntity) Entity : null;
-            if (player == null || !RemnantComponent.get(player).isIncorporeal()) {
-                Entity.damage(DamageSource.OUT_OF_WORLD, 100);
+        if (attritionTime > 0) {
+            int total = Math.max(getTotalTime(Entity) + Increment * 20, 0);
+            int deathLevel = Entity.world.getGameRules().getInt(MementoMori.soulDamageDeathLevel);
+            int totalTime = attritionTime * (deathLevel - 1);
+            if (deathLevel < 0 || (total < totalTime && deathLevel > 0)) {
+                setTotalTime(Entity, total);
+            } else {
+                setTotalTime(Entity, total);
+                PlayerEntity player = Entity instanceof PlayerEntity ? (PlayerEntity) Entity : null;
+                if (player == null || !RemnantComponent.get(player).isIncorporeal()) {
+                    Entity.damage(DamageSource.OUT_OF_WORLD, 100);
+                }
             }
         }
     }

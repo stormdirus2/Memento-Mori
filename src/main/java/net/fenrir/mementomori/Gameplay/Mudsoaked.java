@@ -12,7 +12,7 @@ import net.minecraft.entity.mob.MobEntity;
 public class Mudsoaked extends StatusEffect {
 
     public Mudsoaked() {
-        super(StatusEffectType.BENEFICIAL, 0xAA3322);
+        super(StatusEffectType.BENEFICIAL, 0x9C694E);
     }
 
     public static void add(LivingEntity entity) {

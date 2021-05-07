@@ -58,11 +58,9 @@ public class SummonPossessable {
             BlockPos placement = ground.up(2);
             if (world.getBiome(placement).getCategory() == Biome.Category.NETHER) {
                 return spawnReinforcement(EntityType.ZOMBIFIED_PIGLIN.create(world), placement);
-            } else if (world.getBlockState(placement).getBlock() == Blocks.LAVA || world.getBlockState(placement.down()).getBlock() == Blocks.LAVA) {
-                return spawnReinforcement(EntityType.WITHER_SKELETON.create(world), placement);
             } else if (world.getBiome(placement).getCategory() == Biome.Category.DESERT) {
                 return spawnReinforcement(EntityType.HUSK.create(world), placement);
-            } else if (world.getBlockState(pos).getMaterial().isLiquid()) {
+            } else if (world.getBlockState(placement).getBlock() == Blocks.WATER || world.getBlockState(placement.down()).getBlock() == Blocks.WATER) {
                 return spawnReinforcement(EntityType.DROWNED.create(world), placement);
             } else if (world.isNight() || !world.isSkyVisible(placement)) {
                 return spawnReinforcement(EntityType.SKELETON.create(world), placement);

@@ -77,6 +77,19 @@ Therefore, you would need to deal 80 damage against Piglins to reach the same du
 
 ######
 <details>
+  <summary>Alleviation</summary>
+
+Most commonly obtained through Soul Salves. 
+
+While with this effect, your maximum health is no longer decreased by any magnitude of attrition.
+
+Due to one of the requirements to using a Soul Salve forcing you to be human, it is best used to alleviate high levels of attrition that will take a long time to fully dissipate. 
+
+Do keep in mind that Soul Salves DO inflict soul damage. 60, to be exact. So be careful.
+</details>
+
+######
+<details>
   <summary>Soul damage</summary>
 
 Soul damage can occur from multiple sources.\
@@ -156,6 +169,17 @@ You can gain this item by cooking a spider eye with a campfire.
 This will weaken the poison, allowing consumption with only a *moderate* amount of nerve damage.
 </details>
 <details>
+<summary>Soul Salve</summary>
+
+A very useful item for players who have recently cured. In order to craft it, you must place 4 redstone on each side, 4 quartz in each corner, and a piece of paper in the middle.
+
+In order to use it, it is required to be human and to have the attrition status effect.
+
+When used, it gives 10 minutes of Alleviation. If you already have this effect it increments the duration by 10 minutes.
+
+Additionally, it inflicts 60 soul damage. So be careful.
+</details>
+<details>
   <summary>Eau De Mort</summary>
 
 Hands down the most interesting item in this mod. 
@@ -222,11 +246,16 @@ This mod implements MoriyaShiine's [On Soul Fire](https://www.curseforge.com/min
 * (Configurable via gamerule) Blocks with a blast resistance of 1200 (obsidian level) or higher cannot be phased through. Happy ghost-trapping :)
 
 
+* The curing process does not wait any duration to complete.
+
+
 * You cannot cure Attrition via milk or most other methods.
+
 
 * You can craft bones via placing 3 bonemeal in a crafting gird.
 
-* Spiders are guaranteed to drop spider eyes, even if not killed by a player.
+
+* Spiders drop spider eyes like normal even if not killed by a player.
 </details>
 
 ### Gamerules

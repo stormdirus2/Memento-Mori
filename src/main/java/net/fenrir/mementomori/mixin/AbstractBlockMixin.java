@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +25,8 @@ public abstract class AbstractBlockMixin {
     @Inject(at = @At("RETURN"), method = "calcBlockBreakingDelta", cancellable = true)
     private void modifyBlockBreakSpeed(BlockState state, PlayerEntity player, BlockView world, BlockPos pos, CallbackInfoReturnable<Float> info) {
         float base = info.getReturnValue();
-        if (this.asBlock().getDefaultState().isToolRequired() && PossessionComponent.get(player).isPossessing()) {
+        BlockState defaultState = asBlock().getDefaultState();
+        if (defaultState.isToolRequired() && Items.WOODEN_PICKAXE.isEffectiveOn(defaultState) && PossessionComponent.get(player).isPossessing()) {
             ItemStack stack = player.getMainHandStack();
             if (stack != null) {
                 Item item = stack.getItem();

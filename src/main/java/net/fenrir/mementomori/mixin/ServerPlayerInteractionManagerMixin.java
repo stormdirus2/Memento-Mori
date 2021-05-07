@@ -22,18 +22,16 @@ public class ServerPlayerInteractionManagerMixin {
     @Shadow
     public ServerPlayerEntity player;
     private BlockState lastBlockState;
-    private BlockPos lastPos;
 
     @Inject(method = "tryBreakBlock", at = @At("HEAD"))
     private void captureBlock(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         lastBlockState = world.getBlockState(pos);
-        lastPos = pos;
     }
 
     @ModifyVariable(method = "tryBreakBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;postMine(Lnet/minecraft/world/World;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V"), ordinal = 1)
     private boolean modifyEffectiveTool(boolean original) {
         if (PossessionComponent.get(player).isPossessing()) {
-            if (Items.WOODEN_PICKAXE.canMine(lastBlockState, world, lastPos, player)) {
+            if (Items.WOODEN_PICKAXE.isEffectiveOn(lastBlockState)) {
                 return true;
             }
         }
