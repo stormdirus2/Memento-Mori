@@ -70,25 +70,25 @@ public class MementoMori implements ModInitializer {
     public static final Item SOUL_SALVE = new SoulSalve(new Item.Settings().rarity(Rarity.UNCOMMON).group(ItemGroup.TOOLS));
     public static final Tag<Item> CURE_ALLS = TagRegistry.item(new Identifier(MOD_ID, "cure_alls"));
     public static final GameRules.Key<GameRules.BooleanRule> cureAlls =
-            register("cureAllItems", GameRuleFactory.createBooleanRule(true), GameRules.Category.PLAYER);
+            register("cureAllItems", GameRuleFactory.createBooleanRule(true));
     public static final GameRules.Key<GameRules.IntRule> soulDamageDeathLevel =
-            register("soulDamageDeathLevel", GameRuleFactory.createIntRule(4, -1, 4), GameRules.Category.PLAYER);
+            register("soulDamageDeathLevel", GameRuleFactory.createIntRule(4, -1, 4));
     public static final GameRules.Key<GameRules.IntRule> phantomSpawnCount =
-            register("phantomSpawnCount", GameRuleFactory.createIntRule(1, 0), GameRules.Category.PLAYER);
+            register("phantomSpawnCount", GameRuleFactory.createIntRule(1, 0));
     public static final GameRules.Key<GameRules.BooleanRule> attritionGrowth =
             register("attritionGrowth", GameRuleFactory.createBooleanRule(true, (server, rule) -> {
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBoolean(rule.get());
                 server.getPlayerManager().sendToAll(ServerSidePacketRegistry.INSTANCE.toPacket(new Identifier("mementomori:attrition_growth"), buf));
-            }), GameRules.Category.PLAYER);
+            }));
     public static final GameRules.Key<GameRules.BooleanRule> blastUnphasable =
             register("blastResistantUnphasable", GameRuleFactory.createBooleanRule(true, (server, rule) -> {
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBoolean(rule.get());
                 server.getPlayerManager().sendToAll(ServerSidePacketRegistry.INSTANCE.toPacket(new Identifier("mementomori:blast_unphasable"), buf));
-            }), GameRules.Category.PLAYER);
+            }));
     public static final GameRules.Key<GameRules.IntRule> attritionTime =
-            register("attritionTime", GameRuleFactory.createIntRule(600, 0), GameRules.Category.PLAYER);
+            register("attritionTime", GameRuleFactory.createIntRule(1200, 0));
     public static final Identifier soulCleaving = new Identifier("mementomori", "soul_cleaving");
     public static final Identifier reaping = new Identifier("mementomori", "reaping");
     private static final Pattern NETHER_CHEST = Pattern.compile("chests/.*nether.*");
@@ -126,8 +126,8 @@ public class MementoMori implements ModInitializer {
         }
     }
 
-    private static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type, GameRules.Category category) {
-        return GameRuleRegistry.register(MOD_ID + ":" + name, category, type);
+    private static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type) {
+        return GameRuleRegistry.register(MOD_ID + ":" + name, GameRules.Category.PLAYER, type);
     }
 
     @Override

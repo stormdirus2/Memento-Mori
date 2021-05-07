@@ -4,7 +4,6 @@ import ladysnake.requiem.api.v1.possession.Possessable;
 import ladysnake.requiem.common.util.DamageHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
