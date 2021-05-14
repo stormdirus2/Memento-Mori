@@ -1,11 +1,8 @@
 package net.fenrir.mementomori.mixin;
 
-import ladysnake.requiem.api.v1.possession.Possessable;
-import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.impl.possession.PossessionComponentImpl;
 import net.fenrir.mementomori.Gameplay.SummonPossessable;
 import net.fenrir.mementomori.MementoMori;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -48,26 +45,6 @@ public abstract class PossessionComponentImplMixin {
     public void avoidCuringTimer(CallbackInfo ci) {
         if (!player.world.isClient) {
             conversionTimer = 1;
-        }
-    }
-
-    @Inject(
-            method = "startPossessing0",
-            at = @At("TAIL"),
-            remap = false
-    )
-    public void avoidPrematureDeath(MobEntity host, Possessable possessable, CallbackInfo ci) {
-        StatusEffectInstance attrition = player.getStatusEffect(RequiemStatusEffects.ATTRITION);
-        if (attrition != null && attrition.getDuration() == player.world.getGameRules().getInt(MementoMori.attritionTime) * 20 && attrition.getAmplifier() < 3) {
-            player.removeStatusEffect(RequiemStatusEffects.ATTRITION);
-            player.addStatusEffect(new StatusEffectInstance(
-                    RequiemStatusEffects.ATTRITION,
-                    1,
-                    attrition.getAmplifier() + 1,
-                    false,
-                    false,
-                    true
-            ));
         }
     }
 

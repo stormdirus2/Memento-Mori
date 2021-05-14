@@ -22,10 +22,6 @@ if (System.env.CI == "true") {
 minecraft {}
 
 repositories {
-    maven {
-        name = "Jitpack"
-        url = "https://jitpack.io"
-    }
     maven { url "https://maven.dblsaiko.net/" }
     maven { url "http://server.bbkr.space:8081/artifactory/libs-release/" }
     maven { url 'https://maven.blamejared.com' }
@@ -45,12 +41,16 @@ repositories {
         }
     }
     maven {
-        name = 'Ladysnake Mods 3'
+        name = 'Ladysnake Mods'
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
         content {
             includeGroup 'io.github.ladysnake'
             includeGroupByRegex 'io\\.github\\.onyxstudios.*'
         }
+    }
+    maven {
+        name = 'Nexus OSS Repository'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
     maven {
         url = "https://maven.shedaniel.me/"
@@ -59,6 +59,25 @@ repositories {
         url = 'https://www.cursemaven.com'
         content {
             includeGroup 'curse.maven'
+        }
+    }
+    maven {
+        url = "https://maven.theillusivec4.top"
+        content {
+            includeGroupByRegex 'top\\.theillusivec4\\..*'
+        }
+    }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+        content {
+            includeGroup 'me.lucko'
+        }
+    }
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
+        content {
+            includeGroupByRegex '(io|com)\\.github\\..*'
         }
     }
     maven {

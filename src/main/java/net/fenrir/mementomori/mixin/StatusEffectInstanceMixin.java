@@ -5,11 +5,15 @@ import ladysnake.requiem.api.v1.remnant.RemnantComponent;
 import ladysnake.requiem.api.v1.remnant.StickyStatusEffect;
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.remnant.RemnantTypes;
+import ladysnake.requiem.common.tag.RequiemEntityTypeTags;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,13 +38,14 @@ public abstract class StatusEffectInstanceMixin {
         if (livingEntity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) livingEntity;
             PossessionComponent possessionComponent = PossessionComponent.get(player);
-            if (possessionComponent.isPossessing()) {
+            MobEntity possessed = possessionComponent.getPossessedEntity();
+            if (possessed instanceof Angerable && !possessed.getType().isIn(RequiemEntityTypeTags.EATERS)) {
                 RemnantComponent remnantComponent = RemnantComponent.get(player);
-                if (StickyStatusEffect.shouldStick(this.getEffectType(), livingEntity) && remnantComponent.getRemnantType() != RemnantTypes.WANDERING_SPIRIT) {
-                    if (livingEntity.getStatusEffect(MementoMori.SATIATION) == null && this.getEffectType() == RequiemStatusEffects.ATTRITION && MementoMori.getAttritionGrowth(livingEntity.world) && (amplifier < 3 || duration < (attritionTime - 1))) {
+                if (StickyStatusEffect.shouldStick(this.getEffectType(), player) && remnantComponent.getRemnantType() != RemnantTypes.WANDERING_SPIRIT) {
+                    if (player.getStatusEffect(MementoMori.SATIATION) == null && this.getEffectType() == RequiemStatusEffects.ATTRITION && MementoMori.getAttritionGrowth(livingEntity.world) && (amplifier < 3 || duration < attritionTime)) {
                         duration++;
-                        if (duration >= attritionTime) {
-                            SoulDamage.IncrementSoul(livingEntity, 1);
+                        if (duration >= attritionTime && amplifier < 3) {
+                            SoulDamage.IncrementSoul(player, 1, false);
                         }
                     }
                 }

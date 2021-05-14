@@ -52,7 +52,7 @@ public class SoulSalve extends Item {
                 if (user.hasStatusEffect(RequiemStatusEffects.ATTRITION)) {
                     ItemStack stack = user.getStackInHand(hand);
                     IncrementAlleviation(user, 12000);
-                    SoulDamage.IncrementSoul(user, 60);
+                    SoulDamage.IncrementSoul(user, 300);
                     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDER_EYE_DEATH, user.getSoundCategory(), 1.0F, 1.0F);
                     user.getItemCooldownManager().set(MementoMori.SOUL_SALVE, 20);
                     stack.decrement(1);

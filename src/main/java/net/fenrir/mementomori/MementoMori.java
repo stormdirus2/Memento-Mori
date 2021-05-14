@@ -15,11 +15,13 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fenrir.mementomori.Gameplay.*;
+import net.fenrir.mementomori.mixin.DamageSourceAccessor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -104,11 +106,20 @@ public class MementoMori implements ModInitializer {
             new Identifier("mementomori", "soul_cleaving"),
             new SoulCleaving()
     );
+    public static DamageSource SOUL_DAMAGE;
     public static Enchantment REAPING = Registry.register(
             Registry.ENCHANTMENT,
             reaping,
             new Reaping()
     );
+
+    static {
+        SOUL_DAMAGE = DamageSource.GENERIC;
+        DamageSourceAccessor accessor = (DamageSourceAccessor) SOUL_DAMAGE;
+        accessor.setName(MOD_ID + ":soulDamage");
+        accessor.setUnblockable(true);
+        accessor.setBypassesArmor(true);
+    }
 
     public static boolean getBlastUnphasable(World world) {
         if (world.isClient()) {

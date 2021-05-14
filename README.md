@@ -1,7 +1,7 @@
 ![](src/main/resources/pack.png)
 ## A content and balancing add-on for Requiem.
 
-Obviously, this mod requires Requiem. It has been tested with version 1.5.1, but may even work on earlier ones.
+Obviously, this mod requires Requiem. It has been tested with version 1.7.6, but may even work on earlier ones.
 
 ### Changes:
 <details>
@@ -15,7 +15,6 @@ Additionally, while possessing a mob you have the default harvest level of a woo
 Using blocks that usually require tools to mine, you can adjust your mining speed to that of a stone pickaxe. Albeit, with the harvest level staying at wooden.
 
 Finally, potential hosts will spawn upon death - and over time while incorporeal.
-Hosts may spawn in such a fashion as to protect themselves from the sun.
 </details>
 
 ######
@@ -23,13 +22,12 @@ Hosts may spawn in such a fashion as to protect themselves from the sun.
   <summary>Attrition</summary>
 
 Attrition has been completely reworked.\
-Its effect now lasts a default of 20 minutes (configurable through gamerules). \
+Its effect now lasts a default of 20 minutes and inflicts this duration as soul damage. (configurable through gamerules. \
 Additionally, each time Attrition runs out, it goes down a level instead of simply disappearing.\
 For example: An Attrition level of IV would take 80 minutes to completely go away. 
 
-While not in human form, Attrition ticks upwards instead of downwards. This can be prevented by gaining the status effect 'Satiation'. This is also configurable through gamerules.\
-After reaching the configurable Attrition duration, the Attrition duration resets to 1 and its amplifier increases.\
-Reaching level IV from a lower Attrition level will kill the player.
+While possessing a neutral/hostile mob without a hunger bar, Attrition ticks upwards instead of downwards. This can be prevented by gaining the status effect 'Satiation'. This is also configurable through gamerules.\
+After reaching the configurable Attrition duration, the Attrition duration resets to 1 and its amplifier increases.
 
 For future reference, the maximum Attrition level is IV.
 </details>
@@ -85,7 +83,7 @@ While with this effect, your maximum health is no longer decreased by any magnit
 
 Due to one of the requirements to using a Soul Salve forcing you to be human, it is best used to alleviate high levels of attrition that will take a long time to fully dissipate. 
 
-Do keep in mind that Soul Salves DO inflict soul damage. 60, to be exact. So be careful.
+Do keep in mind that Soul Salves DO inflict soul damage. 300 (5 minutes worth), to be exact. So be careful.
 </details>
 
 ######
@@ -100,7 +98,7 @@ Taking 3 soul damage would add 3 seconds to your Attrition.\
 Damage going over the configurable Attrition duration would increase the amplifier and have the extra damage be the new duration.\
 For example: Taking 7 soul damage when at Attrition I (19:55) would give you Attrition II (00:02).
 
-Taking soul damage that would put you at or in Attrition IV will kill you.
+Taking soul damage that would put you at or in Attrition IV will likely kill you. (Configurable through gamerules)
 
 Certain damage sources inflict 3 soul damage by default:
 <details>
@@ -184,7 +182,7 @@ Additionally, it inflicts 60 soul damage. So be careful.
 
 Hands down the most interesting item in this mod. 
 
-Although, it doesn't exactly have much competition.
+Although... it doesn't exactly have much competition.
 
 An Eau De Mort allows you to separate from a host, keeping the items intact so that the next host will keep them.
 

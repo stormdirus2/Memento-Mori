@@ -15,7 +15,7 @@ public abstract class BasePossessionHandlersMixin {
 
     @Inject(method = "register", at = @At("HEAD"), cancellable = true, remap = false)
     private static void register2(CallbackInfo ci) {
-        PossessionStartCallback.EVENT.register(Requiem.id("soft_hardcore"), (target, possessor, simulate) -> {
+        PossessionStartCallback.EVENT.register(Requiem.id("eau_de_mort"), (target, possessor, simulate) -> {
             if (Unposessable.of(possessor).map(Unposessable::getLast).isPresent() && Unposessable.of(possessor).map(Unposessable::getLast).get() == target) {
                 return PossessionStartCallback.Result.DENY;
             }

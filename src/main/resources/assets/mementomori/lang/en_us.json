@@ -11,16 +11,18 @@
   "effect.mementomori.satiation": "Satiation",
   "effect.mementomori.mudsoaked": "Mudsoaked",
   "effect.mementomori.alleviation": "Alleviation",
+  "gamerule.mementomori:cureAllItems": "Cure-alls enabled",
+  "gamerule.mementomori:cureAllItems.description": "Controls whether players can cure themselves without weakness by using items in the cure-alls tag.",
   "gamerule.mementomori:attritionGrowth": "Attrition growth during possession",
   "gamerule.mementomori:attritionGrowth.description": "Controls whether attrition will grow over time while possessing a mob.",
   "gamerule.mementomori:attritionTime": "Attrition duration",
   "gamerule.mementomori:attritionTime.description": "Controls the amount of time players have attrition for (in seconds).",
   "gamerule.mementomori:blastResistantUnphasable": "Blast resistant unphasable",
   "gamerule.mementomori:blastResistantUnphasable.description": "Controls whether players can phase through blocks with a blast resistance of obsidian or higher.",
-  "gamerule.mementomori:cureAllItems": "Cure-alls enabled",
-  "gamerule.mementomori:cureAllItems.description": "Controls whether players can cure themselves without weakness by using items in the cure-alls tag.",
   "gamerule.mementomori:soulDamageDeathLevel": "Attrition level soul damage kills at",
   "gamerule.mementomori:soulDamageDeathLevel.description": "Controls the level at which any amount of soul damage will kill the player. Putting -1 will disable this feature.",
   "gamerule.mementomori:phantomSpawnCount": "Phantom spawn count",
-  "gamerule.mementomori:phantomSpawnCount.description": "Controls the amount of phantoms that spawn per level of attrition. Putting 0 will disable this feature."
+  "gamerule.mementomori:phantomSpawnCount.description": "Controls the amount of phantoms that spawn per level of attrition. Putting 0 will disable this feature.",
+  "death.attack.mementomori:soulDamage.player": "%s had their silverstring cut",
+  "death.attack.mementomori:soulDamage": "%s had their silverstring cut"
 }

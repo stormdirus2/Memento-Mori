@@ -2,6 +2,7 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
+import ladysnake.requiem.common.tag.RequiemEntityTypeTags;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
 import net.fenrir.mementomori.Gameplay.AttributeHelper;
 import net.fenrir.mementomori.Gameplay.Satiation;
@@ -16,6 +17,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -32,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(LivingEntity.class)
+@Mixin(value = LivingEntity.class, priority = 999)
 public abstract class LivingEntityMixin extends Entity {
 
 
@@ -64,12 +66,13 @@ public abstract class LivingEntityMixin extends Entity {
         if (!cir.getReturnValue()) {
             return;
         }
-        if ((source == DamageSource.ON_FIRE && ((OnSoulFireAccessor) this).getOnSoulFire())
+        if ((source.isFire() && ((OnSoulFireAccessor) this).getOnSoulFire())
                 || source == DamageSource.WITHER
                 || source == DamageSource.DRAGON_BREATH
         ) {
             SoulDamage.IncrementSoul((LivingEntity) (Object) this, 3);
-        } else if (attacker != null) {
+        }
+        if (attacker instanceof Angerable && !attacker.getType().isIn(RequiemEntityTypeTags.EATERS)) {
             LivingEntity this2 = (LivingEntity) (Object) this;
             EntityType<?> thisType = this2.getType();
             EntityType<?> type = attacker.getType();

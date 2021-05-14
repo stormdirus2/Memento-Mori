@@ -2,7 +2,7 @@ package net.fenrir.mementomori.mixin;
 
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.impl.remnant.MutableRemnantState;
-import net.fenrir.mementomori.MementoMori;
+import net.fenrir.mementomori.Gameplay.DeathHelper;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -20,32 +20,15 @@ public abstract class MutableRemnantStateMixin {
     @Final
     protected PlayerEntity player;
 
-    @Inject(method = "prepareRespawn", at = @At("RETURN"), cancellable = true, remap = false)
+    @Inject(method = "prepareRespawn", at = @At("HEAD"), cancellable = true, remap = false)
     private void addAttrition(ServerPlayerEntity original, boolean lossless, CallbackInfo ci) {
-        StatusEffectInstance effect = original.getStatusEffect(RequiemStatusEffects.ATTRITION);
-        if (effect != null) {
-            if (effect.getAmplifier() < 3) {
-                this.player.addStatusEffect(new StatusEffectInstance(
-                        RequiemStatusEffects.ATTRITION,
-                        this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
-                        effect.getAmplifier() + 1,
-                        false,
-                        false,
-                        true
-                ));
-            } else {
-                this.player.addStatusEffect(new StatusEffectInstance(
-                        RequiemStatusEffects.ATTRITION,
-                        this.player.world.getGameRules().getInt(MementoMori.attritionTime) * 20,
-                        effect.getAmplifier(),
-                        false,
-                        false,
-                        true
-                ));
+        if (!lossless && original.isDead()) {
+            StatusEffectInstance effect = original.getStatusEffect(RequiemStatusEffects.ATTRITION);
+            if (effect != null) {
+                player.addStatusEffect(effect);
             }
+            DeathHelper.kill(player);
         }
     }
 
-    @Shadow
-    public abstract boolean isVagrant();
 }
