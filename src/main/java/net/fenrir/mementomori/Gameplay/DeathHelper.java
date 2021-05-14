@@ -11,7 +11,7 @@ public class DeathHelper {
         int attritionTime = target.world.getGameRules().getInt(MementoMori.attritionTime);
         StatusEffectInstance effect = target.getStatusEffect(RequiemStatusEffects.ATTRITION);
         if (effect == null || effect.getAmplifier() < 3) {
-            SoulDamage.IncrementSoul(target, target.world.getLevelProperties().isHardcore() ? 2 * attritionTime : attritionTime);
+            SoulDamage.IncrementSoul(target, target.world.getLevelProperties().isHardcore() ? 2 * attritionTime : attritionTime, false);
         } else if (effect.getDuration() < attritionTime * 20) {
             target.removeStatusEffect(RequiemStatusEffects.ATTRITION);
             target.addStatusEffect(new StatusEffectInstance(
