@@ -2,7 +2,6 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
-import ladysnake.requiem.common.tag.RequiemEntityTypeTags;
 import moriyashiine.onsoulfire.interfaces.OnSoulFireAccessor;
 import net.fenrir.mementomori.Gameplay.AttributeHelper;
 import net.fenrir.mementomori.Gameplay.Satiation;
@@ -17,7 +16,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
