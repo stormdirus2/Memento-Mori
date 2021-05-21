@@ -7,9 +7,9 @@ Obviously, this mod requires Requiem. It has been tested with version 1.7.6, but
 <details>
   <summary>Possession</summary>
 
-Now, if you touch a mob while possessing, they will be alerted of your unnatural state.
+Now, if you touch a mob while possessing, they will be alerted of your playerhood.
 
-Therefore, hostile and neutral mobs will attack you even while possessing their brethren if you collide with em'.
+Therefore, hostile and neutral untamable mobs will attack you even while possessing their brethren if you collide with em'.
 
 Additionally, while possessing a mob you have the default harvest level of a wooden pickaxe.
 Using blocks that usually require tools to mine, you can adjust your mining speed to that of a stone pickaxe. Albeit, with the harvest level staying at wooden.

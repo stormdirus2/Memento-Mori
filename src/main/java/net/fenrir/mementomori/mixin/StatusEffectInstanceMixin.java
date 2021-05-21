@@ -6,6 +6,7 @@ import ladysnake.requiem.api.v1.remnant.StickyStatusEffect;
 import ladysnake.requiem.common.entity.effect.RequiemStatusEffects;
 import ladysnake.requiem.common.remnant.RemnantTypes;
 import ladysnake.requiem.common.tag.RequiemEntityTypeTags;
+import net.fenrir.mementomori.Gameplay.Satiation;
 import net.fenrir.mementomori.Gameplay.SoulDamage;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.LivingEntity;
@@ -39,7 +40,7 @@ public abstract class StatusEffectInstanceMixin {
             PlayerEntity player = (PlayerEntity) livingEntity;
             PossessionComponent possessionComponent = PossessionComponent.get(player);
             MobEntity possessed = possessionComponent.getPossessedEntity();
-            if (possessed instanceof Angerable && !possessed.getType().isIn(RequiemEntityTypeTags.EATERS)) {
+            if (Satiation.isValidMob(possessed)) {
                 RemnantComponent remnantComponent = RemnantComponent.get(player);
                 if (StickyStatusEffect.shouldStick(this.getEffectType(), player) && remnantComponent.getRemnantType() != RemnantTypes.WANDERING_SPIRIT) {
                     if (player.getStatusEffect(MementoMori.SATIATION) == null && this.getEffectType() == RequiemStatusEffects.ATTRITION && MementoMori.getAttritionGrowth(livingEntity.world) && (amplifier < 3 || duration < attritionTime)) {

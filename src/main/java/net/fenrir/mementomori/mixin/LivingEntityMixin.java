@@ -72,7 +72,7 @@ public abstract class LivingEntityMixin extends Entity {
         ) {
             SoulDamage.IncrementSoul((LivingEntity) (Object) this, 3);
         }
-        if (attacker instanceof Angerable && !attacker.getType().isIn(RequiemEntityTypeTags.EATERS)) {
+        if (Satiation.isValidMob(attacker)) {
             LivingEntity this2 = (LivingEntity) (Object) this;
             EntityType<?> thisType = this2.getType();
             EntityType<?> type = attacker.getType();

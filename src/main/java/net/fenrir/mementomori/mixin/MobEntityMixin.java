@@ -2,11 +2,13 @@ package net.fenrir.mementomori.mixin;
 
 
 import ladysnake.requiem.api.v1.possession.Possessable;
+import net.fenrir.mementomori.Gameplay.AngerHelper;
 import net.fenrir.mementomori.Gameplay.BurnsInDaylightInterface;
 import net.fenrir.mementomori.MementoMori;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +54,7 @@ public abstract class MobEntityMixin extends LivingEntityMixin implements BurnsI
         if (entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
             Possessable host = (Possessable) entity;
-            if (host != null && host.isBeingPossessed() && canTarget(EntityType.PLAYER)) {
+            if (host != null && host.isBeingPossessed() && AngerHelper.shouldAttack(living, host.getPossessor())) {
                 this.setTarget(living);
             }
         }

@@ -1,10 +1,15 @@
 package net.fenrir.mementomori.Gameplay;
 
+import ladysnake.requiem.common.tag.RequiemEntityTypeTags;
 import net.fenrir.mementomori.MementoMori;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.mob.Angerable;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 
 public class Satiation extends StatusEffect {
 
@@ -35,5 +40,9 @@ public class Satiation extends StatusEffect {
 
     public static void IncrementSatiation(LivingEntity Entity, int Increment) {
         setTotalTime(Entity, Math.max(getTotalTime(Entity) + Increment, 0));
+    }
+
+    public static boolean isValidMob(Entity entity) {
+        return (entity instanceof HostileEntity || entity instanceof Angerable) && !entity.getType().isIn(RequiemEntityTypeTags.EATERS);
     }
 }

@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "predicate": {
+        "nbt": {
+          "StoredEnchantments": [
+            {
+              "id": "mementomori:soul_cleaving"
+            }
+          ]
+        }
+      },
+      "model": "requiem:item/humanity_enchanted_book"
+    },
+    {
+      "predicate": {
+        "nbt": {
+          "StoredEnchantments": [
+            {
+              "id": "mementomori:reaping"
+            }
+          ]
+        }
+      },
+      "model": "requiem:item/humanity_enchanted_book"
+    }
+  ]
+}

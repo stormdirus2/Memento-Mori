@@ -15,7 +15,6 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobEntityMixin",
-    "ModelLoaderMixin",
     "MutableRemnantStateMixin",
     "PhantomEntityMixin",
     "PhantomTargetMixin",
